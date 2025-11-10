@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply font-sans bg-base text-ink;
+}
+
+h1, h2, h3, h4 {
+  @apply font-heading text-heading;
+}
+
+.container-balanced {
+  @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.card {
+  @apply bg-card rounded-xl shadow-soft;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary;
+}
+.btn-primary {
+  @apply bg-primary text-white hover:bg-accent focus:ring-primary-200;
+}
+.btn-ghost {
+  @apply bg-transparent text-ink border border-secondary/60 hover:bg-secondary/30;
+}
+
+.fade-section {
+  animation: fadeInUp 500ms ease-out both;
+}
+
+
