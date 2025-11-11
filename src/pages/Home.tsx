@@ -38,12 +38,12 @@ export default function HomePage() {
           </div>
           <div className="lg:hidden fade-section">
             <div className="rounded-2xl overflow-hidden bg-base aspect-[4/3] mb-6 sm:mb-0">
-              <img src="/mainlogo.png" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
+              <img src="/maainpic.jpg" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
             </div>
           </div>
           <div className="hidden lg:block fade-section">
             <div className="rounded-2xl overflow-hidden bg-base aspect-[4/3]">
-              <img src="/mainlogo.png" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
+              <img src="/maainpic.jpg" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
             </div>
           </div>
         </div>
