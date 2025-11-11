@@ -18,7 +18,7 @@ export default function PreviewGate({ children }: PropsWithChildren) {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    const expected = import.meta.env.VITE_PREVIEW_PASSWORD || '1234321';
+    const expected = import.meta.env.VITE_PREVIEW_PASSWORD || '10203';
     if (value === expected) {
       try { localStorage.setItem(STORAGE_KEY, 'yes'); } catch {}
       setAuthed(true);
