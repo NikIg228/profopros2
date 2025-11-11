@@ -36,9 +36,14 @@ export default function HomePage() {
               <a href="#formats" className="btn btn-ghost px-5 py-3 w-full sm:w-auto">Подробнее</a>
             </div>
           </div>
+          <div className="lg:hidden fade-section">
+            <div className="rounded-2xl overflow-hidden bg-base aspect-[4/3] mb-6 sm:mb-0">
+              <img src="/mainlogo.png" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
+            </div>
+          </div>
           <div className="hidden lg:block fade-section">
             <div className="rounded-2xl overflow-hidden bg-base aspect-[4/3]">
-              <img src="/pic1.png" alt="Иллюстрация профориентации" className="w-full h-full object-contain" loading="lazy" />
+              <img src="/mainlogo.png" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
             </div>
           </div>
         </div>
