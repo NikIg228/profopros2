@@ -14,7 +14,7 @@ export default function Header() {
       <div className="container-balanced h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-xl bg-primary/90 shadow-soft border border-secondary/50" />
-          <span className="text-lg font-heading text-heading font-semibold">ProfiTest</span>
+          <span className="text-lg font-heading text-heading font-semibold">ProfiLevelUp</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-2">

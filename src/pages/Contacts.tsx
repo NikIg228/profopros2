@@ -10,7 +10,7 @@ export default function ContactsPage() {
           <div className="card p-6 grid gap-3">
             <h2 className="text-lg font-semibold">Как с нами связаться</h2>
             <div className="text-muted">
-              Email: support@profitest.example
+              Email: support@ProfiLevelUp.example
             </div>
             <div className="text-muted">
               Телефон: +7 (707) 000-00-00
