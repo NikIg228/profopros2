@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-type Item = { q: string; a: string };
+type Item = { q: string; a: string | string[] };
 type Props = { items: Item[] };
 
 export default function Accordion({ items }: Props) {
@@ -17,8 +17,8 @@ export default function Accordion({ items }: Props) {
             <span className={`ml-4 transition ${open === i ? 'rotate-180' : ''}`}>⌄</span>
           </button>
           {open === i && (
-            <div className="px-5 pb-4 text-muted">
-              {it.a}
+            <div className="px-5 pb-4 text-muted text-sm leading-relaxed space-y-2">
+              {Array.isArray(it.a) ? it.a.map((paragraph, index) => <p key={index}>{paragraph}</p>) : it.a}
             </div>
           )}
         </div>

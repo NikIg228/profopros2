@@ -4,23 +4,27 @@ import Modal from '../components/Modal';
 import AutoSlider from '../components/AutoSlider';
 import Select from '../components/Select';
 
-type FormErrorKey = 'name' | 'age' | 'gender' | 'testType' | 'email' | 'consent';
+type FormErrorKey = 'name' | 'age' | 'gender' | 'testType' | 'email' | 'emailConfirm' | 'consent';
 
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [plan, setPlan] = useState<'free'|'pro'|null>(null);
-  const [form, setForm] = useState({ name: '', age: '', gender: '', testType: '', email: '', consent: false });
+  const [form, setForm] = useState({ name: '', age: '', gender: '', testType: '', email: '', emailConfirm: '', consent: false });
   const [errors, setErrors] = useState<Partial<Record<FormErrorKey, string>>>({});
   const [previewOpen, setPreviewOpen] = useState(false);
   const navigate = useNavigate();
 
   const trimmedEmail = form.email.trim();
+  const trimmedEmailConfirm = form.emailConfirm.trim();
+  const emailsMatch = trimmedEmail && trimmedEmailConfirm && trimmedEmail === trimmedEmailConfirm;
   const isFormComplete = Boolean(
     form.name.trim() &&
     form.age.trim() &&
     form.gender &&
     form.testType &&
     trimmedEmail &&
+    trimmedEmailConfirm &&
+    emailsMatch &&
     form.consent
   );
 
@@ -36,6 +40,7 @@ export default function HomePage() {
   const openFor = (p: 'free'|'pro') => { setPlan(p); setModalOpen(true); };
   const startTest = () => {
     const emailValue = form.email.trim();
+    const emailConfirmValue = form.emailConfirm.trim();
     const newErrors: Partial<Record<FormErrorKey, string>> = {};
 
     if (!form.name.trim()) newErrors.name = 'Укажите имя';
@@ -47,6 +52,11 @@ export default function HomePage() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
       newErrors.email = 'Введите корректный email';
     }
+    if (!emailConfirmValue) {
+      newErrors.emailConfirm = 'Повторите email';
+    } else if (emailConfirmValue !== emailValue) {
+      newErrors.emailConfirm = 'Email не совпадает';
+    }
     if (!form.consent) newErrors.consent = 'Необходимо подтвердить согласие';
 
     if (Object.keys(newErrors).length) {
@@ -55,7 +65,8 @@ export default function HomePage() {
     }
 
     setErrors({});
-    sessionStorage.setItem('profi.user', JSON.stringify({ ...form, email: emailValue, plan }));
+    const { emailConfirm, ...formWithoutConfirm } = form;
+    sessionStorage.setItem('profi.user', JSON.stringify({ ...formWithoutConfirm, email: emailValue, plan }));
     navigate('/test');
   };
 
@@ -109,27 +120,54 @@ export default function HomePage() {
       {/* How it works */}
       <section className="container-balanced mt-16">
         <h2 className="text-2xl font-semibold">Как это работает</h2>
-        <div className="mt-6 grid md:grid-cols-3 gap-4">
-          <div className="card p-4 md:p-5 flex items-start gap-3 border border-secondary/40">
-            <FormIcon />
-            <div>
-              <div className="font-medium">Заполняете короткую форму</div>
-              <div className="text-muted">Имя и email — чтобы сформировать и при желании отправить результат.</div>
+        <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="card p-5 border border-secondary/40 space-y-3">
+            <h3 className="text-xl font-semibold">Вы проходите Базовый тест</h3>
+            <p className="text-muted text-sm">
+              Ответы основаны на простых жизненных ситуациях. Они не требуют “знаний” — важно выбрать то, что ближе и естественнее.
+            </p>
+          </div>
+          <div className="card p-5 border border-secondary/40 space-y-3">
+            <h3 className="text-xl font-semibold">Алгоритм анализирует ваш естественный тип мышления</h3>
+            <p className="text-muted text-sm">
+              Ответы сопоставляются с ключевыми дихотомиями и паттернами поведения, используемыми в международных типологиях MBTI и RIASEC (Холланд).
+            </p>
+          </div>
+          <div className="card p-5 border border-secondary/40 space-y-3">
+            <h3 className="text-xl font-semibold">Вы получаете персональный результат</h3>
+            <div className="grid gap-2 text-muted text-sm">
+              <p>
+                Базовый тест — это первый шаг к пониманию себя. Вы получите предварительное определение вашего типа личности — краткое
+                описание, которое отражает ваши естественные реакции, стиль мышления и подход к жизни.
+              </p>
+              <div>
+                <div className="font-medium text-ink">Тест покажет:</div>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>как вы обычно действуете и принимаете решения;</li>
+                  <li>как вы видите мир — больше через чувства или через логику;</li>
+                  <li>почему одни ситуации даются легко, а другие вызывают усталость или раздражение.</li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div className="card p-4 md:p-5 flex items-start gap-3 border border-secondary/40">
-            <QuestionsIcon />
-            <div>
-              <div className="font-medium">Отвечаете на вопросы</div>
-              <div className="text-muted">От 10–15 (free) до 30+ (pro) вопросов — это займёт 5–12 минут.</div>
+          <div className="card p-5 border border-secondary/40 space-y-3 xl:col-span-2">
+            <h3 className="text-xl font-semibold">Хотите глубже?</h3>
+            <div className="grid gap-2 text-muted text-sm">
+              <p>
+                👉 Получите расширенный отчёт — там подробно о вашем типе мышления, сильных сторонах и сферах, где вы чувствуете себя
+                естественно и уверенно.
+              </p>
+              <p>
+                Вы узнаете, что помогает вам расти, а что, наоборот, мешает, поймёте свои реакции в отношениях и узнаете, как использовать
+                особенности своей личности в работе, общении и жизни.
+              </p>
             </div>
           </div>
-          <div className="card p-4 md:p-5 flex items-start gap-3 border border-secondary/40">
-            <ResultIcon />
-            <div>
-              <div className="font-medium">Получаете результат</div>
-              <div className="text-muted">Краткий вывод или расширенный отчёт с рекомендациями и шагами.</div>
-            </div>
+          <div className="card p-5 border border-secondary/40 space-y-3 xl:col-span-1">
+            <h3 className="text-xl font-semibold">Понимание, которое остаётся</h3>
+            <p className="text-muted text-sm">
+              Это не тест “на оценку”. Это инструмент, который помогает понять себя и других — и принимать решения без хаоса и сомнений.
+            </p>
           </div>
         </div>
       </section>
@@ -170,52 +208,42 @@ export default function HomePage() {
       {/* Who for */}
       <section className="container-balanced mt-16">
         <h2 className="text-2xl font-semibold">Кому подойдёт</h2>
-        <div className="mt-6 grid md:grid-cols-3 gap-4">
-          <div className="card p-4 md:p-5 border border-secondary/40">
-            <div className="font-medium">11 класс / абитуриент</div>
-            <ul className="mt-2 text-sm text-muted list-disc list-inside">
-              <li>Понять направление перед выбором вуза</li>
-              <li>Сверить ожидания с реальными задачами</li>
+        <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div className="card p-5 border border-secondary/40 space-y-3">
+            <div className="text-xl">🎓 Ученикам старших классов</div>
+            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+              <li>понять своё направление перед выбором вуза;</li>
+              <li>сверить интересы с реальными склонностями;</li>
+              <li>выбрать среду, где учёба и работа будут естественными, а не из-под палки;</li>
+              <li>избежать случайного выбора “по совету”.</li>
             </ul>
           </div>
-          <div className="card p-4 md:p-5 border border-secondary/40">
-            <div className="font-medium">Студент 1–2 курса</div>
-            <ul className="mt-2 text-sm text-muted list-disc list-inside">
-              <li>Выбрать специализацию и проекты</li>
-              <li>Наметить учебные треки</li>
+          <div className="card p-5 border border-secondary/40 space-y-3">
+            <div className="text-xl">🎓 Студентам</div>
+            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+              <li>уточнить специализацию и карьерный трек, который действительно откликается;</li>
+              <li>понять, в какой практике/формате вы раскроетесь лучше (наука, корпорация, стартап, фриланс);</li>
+              <li>скорректировать учебную траекторию, чтобы не терять время на неподходящие курсы;</li>
+              <li>повысить мотивацию и эффективность, опираясь на свои сильные стороны.</li>
             </ul>
           </div>
-          <div className="card p-4 md:p-5 border border-secondary/40">
-            <div className="font-medium">Смена направления</div>
-            <ul className="mt-2 text-sm text-muted list-disc list-inside">
-              <li>Определить переносимые навыки</li>
-              <li>Получить план первых шагов</li>
+          <div className="card p-5 border border-secondary/40 space-y-3">
+            <div className="text-xl">👨‍👩‍👧 Родителям подростков</div>
+            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+              <li>глубже понять характер и мышление ребёнка;</li>
+              <li>увидеть, как с ним говорить и как мотивировать без давления;</li>
+              <li>найти баланс между поддержкой и свободой;</li>
+              <li>помочь ребёнку выбрать путь, не навязывая свой сценарий.</li>
             </ul>
           </div>
-        </div>
-      </section>
-
-      {/* Compare table */}
-      <section className="container-balanced mt-16">
-        <h2 className="text-2xl font-semibold">Сравнение форматов</h2>
-        <div className="mt-6 grid md:grid-cols-2 gap-4">
-          <div className="card p-4 md:p-5 border border-secondary/40">
-            <div className="font-semibold">Free</div>
-            <ul className="mt-3 text-sm text-muted list-disc list-inside">
-              <li>10–15 вопросов</li>
-              <li>Краткий вывод</li>
-              <li>Базовые рекомендации</li>
+          <div className="card p-5 border border-secondary/40 space-y-3">
+            <div className="text-xl">💼 Взрослым</div>
+            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+              <li>переосмыслить профессию, если ощущение “я не на своём месте”;</li>
+              <li>понять, где комфортнее реализовывать себя — в команде, на своём деле или в другой сфере;</li>
+              <li>увидеть свои сильные стороны и использовать их осознанно;</li>
+              <li>восстановить ясность в том, чего вы хотите от работы и жизни.</li>
             </ul>
-          </div>
-          <div className="card p-4 md:p-5 border-2 border-primary bg-primary/5">
-            <div className="font-semibold">Pro</div>
-            <ul className="mt-3 text-sm text-muted list-disc list-inside">
-              <li>30+ вопросов</li>
-              <li>Персональные рекомендации</li>
-              <li>Пример профессий и план первых шагов</li>
-              <li>Email-отчёт</li>
-            </ul>
-            <button className="btn btn-primary mt-5 px-5 py-3 w-full sm:w-auto" onClick={() => openFor('pro')}>Перейти на Pro</button>
           </div>
         </div>
       </section>
@@ -285,6 +313,20 @@ export default function HomePage() {
             {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
           </div>
           <div className="space-y-1">
+            <input
+              type="email"
+              className={`w-full px-4 py-3 rounded-xl border border-black/10 shadow-sm transition focus:outline-none focus:ring-1 focus:ring-primary/40 ${errors.emailConfirm ? 'border-red-500' : ''}`}
+              placeholder="Подтвердите email"
+              value={form.emailConfirm}
+              onChange={(e) => {
+                setForm({ ...form, emailConfirm: e.target.value });
+                clearError('emailConfirm');
+              }}
+              aria-invalid={Boolean(errors.emailConfirm)}
+            />
+            {errors.emailConfirm && <p className="text-xs text-red-500">{errors.emailConfirm}</p>}
+          </div>
+          <div className="space-y-1">
             <Select
               value={form.testType}
               onChange={(v) => {
@@ -323,7 +365,6 @@ export default function HomePage() {
                   Пользовательским соглашением
                 </Link>{' '}
                 и получением рассылок.<br />
-                Не поставив галочку во флажке, тест не начнется.
               </span>
             </label>
             {errors.consent && <p className="text-xs text-red-500">{errors.consent}</p>}
