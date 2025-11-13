@@ -1,21 +1,61 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
-import Accordion from '../components/Accordion';
 import AutoSlider from '../components/AutoSlider';
 import Select from '../components/Select';
+
+type FormErrorKey = 'name' | 'age' | 'gender' | 'testType' | 'email' | 'consent';
 
 export default function HomePage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [plan, setPlan] = useState<'free'|'pro'|null>(null);
-  const [form, setForm] = useState({ name: '', age: '', gender: '', email: '' });
+  const [form, setForm] = useState({ name: '', age: '', gender: '', testType: '', email: '', consent: false });
+  const [errors, setErrors] = useState<Partial<Record<FormErrorKey, string>>>({});
   const [previewOpen, setPreviewOpen] = useState(false);
   const navigate = useNavigate();
 
+  const trimmedEmail = form.email.trim();
+  const isFormComplete = Boolean(
+    form.name.trim() &&
+    form.age.trim() &&
+    form.gender &&
+    form.testType &&
+    trimmedEmail &&
+    form.consent
+  );
+
+  const clearError = (field: FormErrorKey) => {
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  };
+
   const openFor = (p: 'free'|'pro') => { setPlan(p); setModalOpen(true); };
   const startTest = () => {
-    if (!form.email) return; // простая валидация email как обязательного
-    sessionStorage.setItem('profi.user', JSON.stringify({ ...form, plan }));
+    const emailValue = form.email.trim();
+    const newErrors: Partial<Record<FormErrorKey, string>> = {};
+
+    if (!form.name.trim()) newErrors.name = 'Укажите имя';
+    if (!form.age.trim()) newErrors.age = 'Укажите возраст';
+    if (!form.gender) newErrors.gender = 'Выберите пол';
+    if (!form.testType) newErrors.testType = 'Выберите вид теста';
+    if (!emailValue) {
+      newErrors.email = 'Укажите email';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
+      newErrors.email = 'Введите корректный email';
+    }
+    if (!form.consent) newErrors.consent = 'Необходимо подтвердить согласие';
+
+    if (Object.keys(newErrors).length) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
+    sessionStorage.setItem('profi.user', JSON.stringify({ ...form, email: emailValue, plan }));
     navigate('/test');
   };
 
@@ -26,10 +66,10 @@ export default function HomePage() {
         <div className="grid lg:grid-cols-2 items-center gap-8">
           <div className="fade-section">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
-              Найди профессию, которая тебе действительно подходит
+             Твоя профессия - твой путь. Выбери его осознанно
             </h1>
             <p className="mt-4 text-muted text-lg">
-              Пройди тест по профориентации и узнай, в какой сфере ты реализуешь свой потенциал.
+             Авторский тест, созданный на основе мировых методик: RIASEC (Холланд) и MBTI
             </p>
             <div className="mt-6 flex gap-3 flex-col sm:flex-row">
               <button className="btn btn-primary px-5 py-3 w-full sm:w-auto" onClick={() => openFor('free')}>Начать тестирование</button>
@@ -88,31 +128,6 @@ export default function HomePage() {
             <div>
               <div className="font-medium">Получаете результат</div>
               <div className="text-muted">Краткий вывод или расширенный отчёт с рекомендациями и шагами.</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Report preview */}
-      <section className="container-balanced mt-16">
-        <div className="grid lg:grid-cols-[1fr,420px] gap-6 items-center">
-          <div>
-            <h2 className="text-2xl font-semibold">Превью полного отчёта</h2>
-            <p className="mt-2 text-muted">Сферы, сильные стороны и первые шаги — всё в одном месте.</p>
-            <button className="btn btn-primary mt-5 px-5 py-3 w-full sm:w-auto" onClick={() => setPreviewOpen(true)}>Посмотреть пример отчёта</button>
-          </div>
-          <div className="grid gap-4">
-            <div className="card p-4 border border-secondary/40">
-              <div className="text-sm text-muted">Сферы</div>
-              <div className="mt-2 font-medium">Технологии и аналитика • Коммуникации</div>
-            </div>
-            <div className="card p-4 border border-secondary/40">
-              <div className="text-sm text-muted">Сильные стороны</div>
-              <div className="mt-2 font-medium">Системное мышление, усидчивость, эмпатия</div>
-            </div>
-            <div className="card p-4 border border-secondary/40">
-              <div className="text-sm text-muted">Первые шаги</div>
-              <div className="mt-2 font-medium">Мини-проект по данным • Введение в UX • Волонтёрство</div>
             </div>
           </div>
         </div>
@@ -204,40 +219,123 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="container-balanced mt-16 mb-16">
-        <h2 className="text-2xl font-semibold mb-4">FAQ</h2>
-        <Accordion
-          items={[
-            { q: 'Сколько длится прохождение?', a: 'Free — около 5 минут, Pro — 10–12 минут.' },
-            { q: 'Чем отличается платная версия?', a: 'Больше вопросов, глубже анализ и расширенный отчёт с планом.' },
-            { q: 'Как хранятся мои данные?', a: 'Данные используются только для формирования результатов. Подробнее — в Политике конфиденциальности.' },
-            { q: 'Можно ли пройти повторно?', a: 'Да, вы можете пройти тест заново в любое время.' },
-            { q: 'Нужна ли регистрация?', a: 'Нет, достаточно указать email для результатов.' },
-          ]}
-        />
-      </section>
-
       {/* anchors удалены по просьбе пользователя */}
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
-        <h3 className="text-xl font-semibold mb-4">Перед началом — немного о вас</h3>
+        <h3 className="text-xl font-semibold mb-4">Перед началом — немного о Вас</h3>
         <div className="grid gap-3">
-          <input className="px-4 py-3 rounded-xl border border-black/10" placeholder="Имя" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-          <input className="px-4 py-3 rounded-xl border border-black/10" placeholder="Возраст" inputMode="numeric" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} />
-          <Select
-            value={form.gender}
-            onChange={(v) => setForm({ ...form, gender: v })}
-            placeholder="Ваш пол"
-            options={[
-              { value: 'Мужской', label: 'Мужской' },
-              { value: 'Женский', label: 'Женский' },
-              { value: 'Другое', label: 'Другое' },
-            ]}
-          />
-          <input className="px-4 py-3 rounded-xl border border-black/10" placeholder="Email (обязательно)" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-          <button className="btn btn-primary px-5 py-3" onClick={startTest}>Начать тест</button>
-          <p className="text-xs text-muted">Регистрация не требуется. Ваши данные используются только для формирования результатов теста.</p>
+          <div className="space-y-1">
+            <input
+              type="text"
+              className={`w-full px-4 py-3 rounded-xl border border-black/10 shadow-sm transition focus:outline-none focus:ring-1 focus:ring-primary/40 ${errors.name ? 'border-red-500' : ''}`}
+              placeholder="Имя"
+              value={form.name}
+              onChange={(e) => {
+                setForm({ ...form, name: e.target.value });
+                clearError('name');
+              }}
+              aria-invalid={Boolean(errors.name)}
+            />
+            {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+          </div>
+          <div className="space-y-1">
+            <input
+              type="text"
+              className={`w-full px-4 py-3 rounded-xl border border-black/10 shadow-sm transition focus:outline-none focus:ring-1 focus:ring-primary/40 ${errors.age ? 'border-red-500' : ''}`}
+              placeholder="Возраст"
+              inputMode="numeric"
+              value={form.age}
+              onChange={(e) => {
+                setForm({ ...form, age: e.target.value });
+                clearError('age');
+              }}
+              aria-invalid={Boolean(errors.age)}
+            />
+            {errors.age && <p className="text-xs text-red-500">{errors.age}</p>}
+          </div>
+          <div className="space-y-1">
+            <Select
+              value={form.gender}
+              onChange={(v) => {
+                setForm({ ...form, gender: v });
+                clearError('gender');
+              }}
+              placeholder="Ваш пол"
+              options={[
+                { value: 'Мужской', label: 'Мужской' },
+                { value: 'Женский', label: 'Женский' },
+              ]}
+              error={Boolean(errors.gender)}
+            />
+            {errors.gender && <p className="text-xs text-red-500">{errors.gender}</p>}
+          </div>
+          <div className="space-y-1">
+            <input
+              type="email"
+              className={`w-full px-4 py-3 rounded-xl border border-black/10 shadow-sm transition focus:outline-none focus:ring-1 focus:ring-primary/40 ${errors.email ? 'border-red-500' : ''}`}
+              placeholder="Email (обязательно)"
+              value={form.email}
+              onChange={(e) => {
+                setForm({ ...form, email: e.target.value });
+                clearError('email');
+              }}
+              aria-invalid={Boolean(errors.email)}
+            />
+            {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+          </div>
+          <div className="space-y-1">
+            <Select
+              value={form.testType}
+              onChange={(v) => {
+                setForm({ ...form, testType: v });
+                clearError('testType');
+              }}
+              placeholder="Вид теста"
+              options={[
+                { value: 'Базовый тест', label: 'Базовый тест' },
+                { value: 'Расширенный тест', label: 'Расширенный тест' },
+                { value: 'Premium для родителей', label: 'Premium для родителей' },
+              ]}
+              error={Boolean(errors.testType)}
+            />
+            {errors.testType && <p className="text-xs text-red-500">{errors.testType}</p>}
+          </div>
+          <div className="space-y-1 text-xs text-muted">
+            <label className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                checked={form.consent}
+                onChange={(e) => {
+                  setForm({ ...form, consent: e.target.checked });
+                  clearError('consent');
+                }}
+                className={`mt-0.5 h-4 w-4 rounded border border-black/20 transition focus:outline-none focus:ring-2 focus:ring-primary/40 ${errors.consent ? 'border-red-500' : ''}`}
+                aria-invalid={Boolean(errors.consent)}
+              />
+              <span>
+                Поставив галочку, Вы соглашаетесь с{' '}
+                <Link to="/privacy" className="text-blue-500 hover:underline">
+                  Политикой конфиденциальности
+                </Link>
+                ,{' '}
+                <Link to="/terms" className="text-blue-500 hover:underline">
+                  Пользовательским соглашением
+                </Link>{' '}
+                и получением рассылок.<br />
+                Не поставив галочку во флажке, тест не начнется.
+              </span>
+            </label>
+            {errors.consent && <p className="text-xs text-red-500">{errors.consent}</p>}
+          </div>
+          <button
+            type="button"
+            className={`btn btn-primary px-5 py-3 transition ${
+              isFormComplete ? '' : 'opacity-60 cursor-not-allowed'
+            }`}
+            onClick={startTest}
+          >
+            Начать тест
+          </button>
         </div>
       </Modal>
 

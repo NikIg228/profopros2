@@ -6,9 +6,10 @@ type Props = {
   onChange: (v: string) => void;
   placeholder?: string;
   options: Option[];
+  error?: boolean;
 };
 
-export default function Select({ value, onChange, placeholder = 'Выберите', options }: Props) {
+export default function Select({ value, onChange, placeholder = 'Выберите', options, error = false }: Props) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -27,10 +28,11 @@ export default function Select({ value, onChange, placeholder = 'Выберит�
     <div className="relative" ref={containerRef}>
       <button
         type="button"
-        className="w-full px-4 py-3 rounded-xl border border-black/10 bg-white text-left text-ink flex items-center justify-between"
+        className={`w-full px-4 py-3 rounded-xl border border-black/10 bg-white text-left text-ink flex items-center justify-between transition shadow-sm focus:outline-none focus:ring-1 focus:ring-primary/40 ${error ? 'border-red-500' : ''}`}
         onClick={() => setOpen(o => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
+        aria-invalid={error}
       >
         <span className={selected ? '' : 'text-muted'}>{selected || placeholder}</span>
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true" className={`transition-transform ${open ? 'rotate-180' : ''}`}>

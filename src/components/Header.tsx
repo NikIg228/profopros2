@@ -13,14 +13,20 @@ export default function Header() {
     <header className="fixed top-0 inset-x-0 z-50 bg-base/80 backdrop-blur border-b border-black/5">
       <div className="container-balanced h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-primary/90 shadow-soft border border-secondary/50" />
-          <span className="text-lg font-heading text-heading font-semibold">ProfiLevelUp</span>
+          <img
+            src="/maainpic.jpg"
+            alt="Логотип Профиль будущего"
+            className="w-10 h-10 rounded-full object-cover shadow-soft border border-secondary/50"
+            loading="lazy"
+          />
+          <span className="text-lg font-heading text-heading font-semibold">Профиль будущего</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-2">
           <NavLink to="/" className={navLinkClass}>Главная</NavLink>
           <NavLink to="/reviews" className={navLinkClass}>Отзывы</NavLink>
           <NavLink to="/about" className={navLinkClass}>О нас</NavLink>
+          <NavLink to="/help" className={navLinkClass}>Помощь</NavLink>
         </nav>
 
         <button
@@ -47,6 +53,7 @@ export default function Header() {
             <NavLink to="/" onClick={() => setOpen(false)} className={navLinkClass}>Главная</NavLink>
             <NavLink to="/reviews" onClick={() => setOpen(false)} className={navLinkClass}>Отзывы</NavLink>
             <NavLink to="/about" onClick={() => setOpen(false)} className={navLinkClass}>О нас</NavLink>
+            <NavLink to="/help" onClick={() => setOpen(false)} className={navLinkClass}>Помощь</NavLink>
           </div>
         </div>
       )}

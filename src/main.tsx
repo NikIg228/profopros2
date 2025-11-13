@@ -8,9 +8,9 @@ import HomePage from './pages/Home';
 import TestingPage from './pages/Testing';
 import PrivacyPage from './pages/Privacy';
 import TermsPage from './pages/Terms';
-import ContactsPage from './pages/Contacts';
 import ReviewsPage from './pages/Reviews';
 import AboutPage from './pages/About';
+import HelpPage from './pages/Help';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       { path: 'about', element: <AboutPage /> },
       { path: 'privacy', element: <PrivacyPage /> },
       { path: 'terms', element: <TermsPage /> },
-      { path: 'contacts', element: <ContactsPage /> },
+      { path: 'help', element: <HelpPage /> },
     ],
   },
 ]);
