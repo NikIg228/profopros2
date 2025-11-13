@@ -66,7 +66,8 @@ export default function HomePage() {
         <div className="grid lg:grid-cols-2 items-center gap-8">
           <div className="fade-section">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
-             Твоя профессия - твой путь. Выбери его осознанно
+              Твоя профессия - твой путь.
+              <span className="block">Выбери его осознанно</span>
             </h1>
             <p className="mt-4 text-muted text-lg">
              Авторский тест, созданный на основе мировых методик: RIASEC (Холланд) и MBTI
