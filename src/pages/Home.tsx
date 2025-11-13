@@ -103,16 +103,66 @@ export default function HomePage() {
 
       {/* Formats */}
       <section id="formats" className="container-balanced mt-14 lg:mt-20">
-        <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-          <div className="card p-5 md:p-6 hover:shadow-hover transition">
-            <h3 className="text-xl font-semibold">Бесплатный тест</h3>
-            <p className="mt-2 text-muted">10–15 вопросов, базовые рекомендации</p>
-            <button className="btn btn-primary mt-5 px-5 py-3 w-full sm:w-auto" onClick={() => openFor('free')}>Пройти бесплатный тест</button>
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="card p-6 flex flex-col border border-secondary/40 shadow-md bg-white order-1">
+            <div>
+              <h3 className="text-xl font-semibold text-primary">Базовый тест</h3>
+              <div className="mt-2 text-lg font-semibold text-primary">USD 0,00</div>
+            </div>
+            <button
+              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
+              onClick={() => openFor('free')}
+            >
+              Начать
+            </button>
+            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
+              <li>Короткий тест (9 вопросов)</li>
+              <li>Предварительное определение типа личности</li>
+              <li>Краткое описание вашего стиля мышления и поведения</li>
+              <li>Отлично подходит, чтобы познакомиться с методикой</li>
+            </ul>
           </div>
-          <div className="card p-5 md:p-6 hover:shadow-hover transition">
-            <h3 className="text-xl font-semibold">Расширенный тест</h3>
-            <p className="mt-2 text-muted">30+ вопросов, персонализированные рекомендации</p>
-            <button className="btn btn-primary mt-5 px-5 py-3 w-full sm:w-auto" onClick={() => openFor('pro')}>Пройти платный тест</button>
+
+          <div className="card p-6 flex flex-col border-2 border-primary bg-[#ECE9E0] shadow-lg order-2">
+            <div>
+              <div className="inline-block rounded-full bg-primary text-white text-xs px-3 py-1 mb-3">Рекомендуем</div>
+              <h3 className="text-xl font-semibold text-primary">Premium для родителей</h3>
+              <div className="mt-2 text-lg font-semibold text-primary">USD 19,99 (разовый отчёт)</div>
+            </div>
+            <button
+              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
+              onClick={() => openFor('pro')}
+            >
+              Начать
+            </button>
+            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
+              <li>Все из расширенного теста +</li>
+              <li>Подробное описание личности ребёнка</li>
+              <li>Руководство для родителей: как понимать, поддерживать и мотивировать</li>
+              <li>Советы, как строить доверие и улучшать общение в семье</li>
+              <li>Подходит родителям подростков 12-18 лет</li>
+            </ul>
+          </div>
+
+          <div className="card p-6 flex flex-col border border-secondary/40 shadow-md bg-white order-3">
+            <div>
+              <h3 className="text-xl font-semibold text-primary">Расширенный тест</h3>
+              <div className="mt-2 text-lg font-semibold text-primary">USD 9,99 (разовый отчёт)</div>
+            </div>
+            <button
+              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
+              onClick={() => openFor('pro')}
+            >
+              Начать
+            </button>
+            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
+              <li>40+ продуманных вопросов</li>
+              <li>Детальный психологический профиль</li>
+              <li>Персонализированный VIP-отчёт в PDF</li>
+              <li>Сильные и уязвимые стороны</li>
+              <li>Подходящие профессии и естественная рабочая среда</li>
+              <li>Рекомендации по развитию и взаимодействию с другими</li>
+            </ul>
           </div>
         </div>
       </section>
