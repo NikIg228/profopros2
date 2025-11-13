@@ -7,8 +7,13 @@ export default function Footer() {
         <div className="text-sm text-muted space-y-4">
           <div className="space-y-1">
             <div>Товарищество с ограниченной ответственностью «ProfiLevelUp»</div>
-            <div>📍 Казахстан, Алматы</div>
             <div>БИН 251140010905</div>
+            <div className="flex items-center gap-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="text-primary flex-shrink-0">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5z" fill="currentColor"/>
+              </svg>
+              <span>Казахстан, Алматы</span>
+            </div>
           </div>
           <div className="flex flex-wrap gap-3">
           <a

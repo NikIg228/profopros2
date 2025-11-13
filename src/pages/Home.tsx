@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import AutoSlider from '../components/AutoSlider';
 import Select from '../components/Select';
+import HowItWorksSection from '../components/HowItWorksSection';
 
 type FormErrorKey = 'name' | 'age' | 'gender' | 'testType' | 'email' | 'emailConfirm' | 'consent';
 
@@ -37,7 +38,13 @@ export default function HomePage() {
     });
   };
 
-  const openFor = (p: 'free'|'pro') => { setPlan(p); setModalOpen(true); };
+  const openFor = (p: 'free'|'pro', testTypeValue?: string) => {
+    setPlan(p);
+    if (testTypeValue) {
+      setForm((prev) => ({ ...prev, testType: testTypeValue }));
+    }
+    setModalOpen(true);
+  };
   const startTest = () => {
     const emailValue = form.email.trim();
     const emailConfirmValue = form.emailConfirm.trim();
@@ -89,13 +96,13 @@ export default function HomePage() {
             </div>
           </div>
           <div className="lg:hidden fade-section">
-            <div className="rounded-2xl overflow-hidden bg-base aspect-[4/3] mb-6 sm:mb-0">
-              <img src="/maainpic.jpg" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
+            <div className="rounded-2xl overflow-visible bg-base aspect-[3/2] mb-6 sm:mb-0">
+              <img src="/ogog2.png" alt="Иллюстрация профориентации" className="w-full h-full object-contain" loading="lazy" />
             </div>
           </div>
           <div className="hidden lg:block fade-section">
-            <div className="rounded-2xl overflow-hidden bg-base aspect-[4/3]">
-              <img src="/maainpic.jpg" alt="Иллюстрация профориентации" className="w-full h-full object-contain scale-[1.15]" loading="lazy" />
+            <div className="rounded-2xl overflow-visible bg-base aspect-[3/2]">
+              <img src="/ogog2.png" alt="Иллюстрация профориентации" className="w-full h-full object-contain" loading="lazy" />
             </div>
           </div>
         </div>
@@ -109,53 +116,26 @@ export default function HomePage() {
               <h3 className="text-xl font-semibold text-primary">Базовый тест</h3>
               <div className="mt-2 text-lg font-semibold text-primary">USD 0,00</div>
             </div>
-            <button
-              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
-              onClick={() => openFor('free')}
-            >
-              Начать
-            </button>
-            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
+            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside flex-grow">
               <li>Короткий тест (9 вопросов)</li>
               <li>Предварительное определение типа личности</li>
               <li>Краткое описание вашего стиля мышления и поведения</li>
               <li>Отлично подходит, чтобы познакомиться с методикой</li>
             </ul>
-          </div>
-
-          <div className="card p-6 flex flex-col border-2 border-primary bg-[#ECE9E0] shadow-lg order-2">
-            <div>
-              <div className="inline-block rounded-full bg-primary text-white text-xs px-3 py-1 mb-3">Рекомендуем</div>
-              <h3 className="text-xl font-semibold text-primary">Premium для родителей</h3>
-              <div className="mt-2 text-lg font-semibold text-primary">USD 19,99 (разовый отчёт)</div>
-            </div>
             <button
               className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
-              onClick={() => openFor('pro')}
+              onClick={() => openFor('free', 'Базовый тест')}
             >
               Начать
             </button>
-            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
-              <li>Все из расширенного теста +</li>
-              <li>Подробное описание личности ребёнка</li>
-              <li>Руководство для родителей: как понимать, поддерживать и мотивировать</li>
-              <li>Советы, как строить доверие и улучшать общение в семье</li>
-              <li>Подходит родителям подростков 12-18 лет</li>
-            </ul>
           </div>
 
-          <div className="card p-6 flex flex-col border border-secondary/40 shadow-md bg-white order-3">
+          <div className="card p-6 flex flex-col border border-secondary/40 shadow-md bg-white order-2">
             <div>
               <h3 className="text-xl font-semibold text-primary">Расширенный тест</h3>
               <div className="mt-2 text-lg font-semibold text-primary">USD 9,99 (разовый отчёт)</div>
             </div>
-            <button
-              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
-              onClick={() => openFor('pro')}
-            >
-              Начать
-            </button>
-            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
+            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside flex-grow">
               <li>40+ продуманных вопросов</li>
               <li>Детальный психологический профиль</li>
               <li>Персонализированный VIP-отчёт в PDF</li>
@@ -163,81 +143,122 @@ export default function HomePage() {
               <li>Подходящие профессии и естественная рабочая среда</li>
               <li>Рекомендации по развитию и взаимодействию с другими</li>
             </ul>
+            <button
+              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
+              onClick={() => openFor('pro', 'Расширенный тест')}
+            >
+              Начать
+            </button>
+          </div>
+
+          <div className="card p-6 flex flex-col border-2 border-primary bg-[#ECE9E0] shadow-lg order-3">
+            <div>
+              <div className="inline-block rounded-full bg-primary text-white text-xs px-3 py-1 mb-3">Рекомендуем</div>
+              <h3 className="text-xl font-semibold text-primary">Premium для родителей</h3>
+              <div className="mt-2 text-lg font-semibold text-primary">USD 19,99 (разовый отчёт)</div>
+            </div>
+            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside flex-grow">
+              <li>Все из расширенного теста +</li>
+              <li>Подробное описание личности ребёнка</li>
+              <li>Руководство для родителей: как понимать, поддерживать и мотивировать</li>
+              <li>Советы, как строить доверие и улучшать общение в семье</li>
+              <li>Подходит родителям подростков 13-18 лет</li>
+            </ul>
+            <button
+              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
+              onClick={() => openFor('pro', 'Premium для родителей')}
+            >
+              Начать
+            </button>
           </div>
         </div>
       </section>
 
       {/* How it works */}
-      <section className="container-balanced mt-16">
-        <h2 className="text-2xl font-semibold">Как это работает</h2>
-        <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-          <div className="card p-5 border border-secondary/40 space-y-3">
-            <h3 className="text-xl font-semibold">Вы проходите Базовый тест</h3>
-            <p className="text-muted text-sm">
-              Ответы основаны на простых жизненных ситуациях. Они не требуют “знаний” — важно выбрать то, что ближе и естественнее.
-            </p>
-          </div>
-          <div className="card p-5 border border-secondary/40 space-y-3">
-            <h3 className="text-xl font-semibold">Алгоритм анализирует ваш естественный тип мышления</h3>
-            <p className="text-muted text-sm">
-              Ответы сопоставляются с ключевыми дихотомиями и паттернами поведения, используемыми в международных типологиях MBTI и RIASEC (Холланд).
-            </p>
-          </div>
-          <div className="card p-5 border border-secondary/40 space-y-3">
-            <h3 className="text-xl font-semibold">Вы получаете персональный результат</h3>
-            <div className="grid gap-2 text-muted text-sm">
-              <p>
-                Базовый тест — это первый шаг к пониманию себя. Вы получите предварительное определение вашего типа личности — краткое
-                описание, которое отражает ваши естественные реакции, стиль мышления и подход к жизни.
-              </p>
-              <div>
-                <div className="font-medium text-ink">Тест покажет:</div>
-                <ul className="list-disc list-inside space-y-1">
-                  <li>как вы обычно действуете и принимаете решения;</li>
-                  <li>как вы видите мир — больше через чувства или через логику;</li>
-                  <li>почему одни ситуации даются легко, а другие вызывают усталость или раздражение.</li>
-                </ul>
+      <HowItWorksSection
+        steps={[
+          {
+            title: 'Вы проходите Базовый тест',
+            content: (
+              <div className="space-y-2">
+                <p className="text-gray-900">Ответы основаны на простых жизненных ситуациях.</p>
+                <p className="text-gray-900">Они не требуют "знаний" — важно выбрать то, что ближе и естественнее.</p>
               </div>
-            </div>
-          </div>
-          <div className="card p-5 border border-secondary/40 space-y-3 xl:col-span-2">
-            <h3 className="text-xl font-semibold">Хотите глубже?</h3>
-            <div className="grid gap-2 text-muted text-sm">
-              <p>
-                👉 Получите расширенный отчёт — там подробно о вашем типе мышления, сильных сторонах и сферах, где вы чувствуете себя
-                естественно и уверенно.
+            ),
+          },
+          {
+            title: 'Алгоритм анализирует ваш естественный тип мышления',
+            content: (
+              <p className="text-gray-900">
+                Ответы сопоставляются с ключевыми дихотомиями и паттернами поведения, используемыми в международных типологиях MBTI и RIASEC (Холланд).
               </p>
-              <p>
-                Вы узнаете, что помогает вам расти, а что, наоборот, мешает, поймёте свои реакции в отношениях и узнаете, как использовать
-                особенности своей личности в работе, общении и жизни.
-              </p>
-            </div>
-          </div>
-          <div className="card p-5 border border-secondary/40 space-y-3 xl:col-span-1">
-            <h3 className="text-xl font-semibold">Понимание, которое остаётся</h3>
-            <p className="text-muted text-sm">
-              Это не тест “на оценку”. Это инструмент, который помогает понять себя и других — и принимать решения без хаоса и сомнений.
-            </p>
-          </div>
-        </div>
-      </section>
+            ),
+          },
+          {
+            title: 'Вы получаете персональный результат',
+            content: (
+              <div className="space-y-3">
+                <p className="text-gray-900">
+                  Базовый тест — это первый шаг к пониманию себя. Вы получите предварительное определение вашего типа личности — краткое описание, которое отражает ваши естественные реакции, стиль мышления и подход к жизни.
+                </p>
+                <div className="bg-secondary p-4 rounded-lg border border-secondary">
+                  <div className="font-semibold text-heading mb-2">Тест покажет:</div>
+                  <ul className="list-disc list-inside space-y-1.5 text-sm text-gray-900">
+                    <li>как вы обычно действуете и принимаете решения;</li>
+                    <li>как вы видите мир — больше через чувства или через логику;</li>
+                    <li>почему некоторые ситуации вам даются легко, а другие вызывают усталость или раздражение.</li>
+                  </ul>
+                </div>
+              </div>
+            ),
+          },
+          {
+            title: 'Хотите глубже?',
+            content: (
+              <div className="space-y-3">
+                <p className="text-gray-900">
+                   Получите расширенный отчёт — там подробно о вашем типе мышления, сильных сторонах и сферах, где вы чувствуете себя естественно и уверенно.
+                </p>
+                <p className="text-gray-900">
+                  Вы узнаете, что помогает вам расти, а что, наоборот, мешает, поймёте свои реакции в отношениях и узнаете, как использовать особенности своей личности в работе, общении и жизни.
+                </p>
+              </div>
+            ),
+          },
+          {
+            title: 'Понимание, которое остаётся',
+            content: (
+              <div className="space-y-2">
+                <p className="text-gray-900">Это не тест "на оценку".</p>
+                <p className="text-gray-900">
+                  Это инструмент, который помогает понять себя и других — и принять решения без хаоса и сомнений.
+                </p>
+              </div>
+            ),
+          },
+        ]}
+      />
 
       {/* Social proof */}
       <section className="container-balanced mt-16">
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div className="card p-5 md:p-6 flex items-center gap-3 border border-secondary/40">
-            <UsersIcon />
-            <div>
-              <div className="text-2xl font-semibold">12 400+</div>
-              <div className="text-muted">прошли тест</div>
-            </div>
+        <div className="grid sm:grid-cols-3 gap-4">
+          <div className="card p-5 md:p-6 border border-secondary/40 flex items-start gap-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 mt-1">
+              <path d="M20 6L9 17l-5-5" stroke="#6B9080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <div className="text-lg md:text-xl font-semibold text-heading">8 200+ человек прошли тест</div>
           </div>
-          <div className="card p-5 md:p-6 flex items-center gap-3 border border-secondary/40">
-            <StarIcon />
-            <div>
-              <div className="text-2xl font-semibold">4.8/5</div>
-              <div className="text-muted">средняя оценка</div>
-            </div>
+          <div className="card p-5 md:p-6 border border-secondary/40 flex items-start gap-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 mt-1">
+              <path d="M20 6L9 17l-5-5" stroke="#6B9080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <div className="text-lg md:text-xl font-semibold text-heading">92% говорят: "Я понял(а) себя лучше"</div>
+          </div>
+          <div className="card p-5 md:p-6 border border-secondary/40 flex items-start gap-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 mt-1">
+              <path d="M20 6L9 17l-5-5" stroke="#6B9080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <div className="text-lg md:text-xl font-semibold text-heading">78% родителей отмечают, что ребёнок стал увереннее</div>
           </div>
         </div>
       </section>
@@ -278,7 +299,7 @@ export default function HomePage() {
             </ul>
           </div>
           <div className="card p-5 border border-secondary/40 space-y-3">
-            <div className="text-xl">👨‍👩‍👧 Родителям подростков</div>
+            <div className="text-xl">👨‍👩‍👧 Родителям подростков (13-18 лет)</div>
             <ul className="text-sm text-muted list-disc list-inside space-y-1">
               <li>глубже понять характер и мышление ребёнка;</li>
               <li>увидеть, как с ним говорить и как мотивировать без давления;</li>
@@ -300,7 +321,14 @@ export default function HomePage() {
 
       {/* anchors удалены по просьбе пользователя */}
 
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}>
+      <Modal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setForm((prev) => ({ ...prev, testType: '' }));
+        }}
+        hideScrollbar={Object.keys(errors).length === 0}
+      >
         <h3 className="text-xl font-semibold mb-4">Перед началом — немного о Вас</h3>
         <div className="grid gap-3">
           <div className="space-y-1">
@@ -376,23 +404,25 @@ export default function HomePage() {
             />
             {errors.emailConfirm && <p className="text-xs text-red-500">{errors.emailConfirm}</p>}
           </div>
-          <div className="space-y-1">
-            <Select
-              value={form.testType}
-              onChange={(v) => {
-                setForm({ ...form, testType: v });
-                clearError('testType');
-              }}
-              placeholder="Вид теста"
-              options={[
-                { value: 'Базовый тест', label: 'Базовый тест' },
-                { value: 'Расширенный тест', label: 'Расширенный тест' },
-                { value: 'Premium для родителей', label: 'Premium для родителей' },
-              ]}
-              error={Boolean(errors.testType)}
-            />
-            {errors.testType && <p className="text-xs text-red-500">{errors.testType}</p>}
-          </div>
+          {!form.testType && (
+            <div className="space-y-1">
+              <Select
+                value={form.testType}
+                onChange={(v) => {
+                  setForm({ ...form, testType: v });
+                  clearError('testType');
+                }}
+                placeholder="Вид теста"
+                options={[
+                  { value: 'Базовый тест', label: 'Базовый' },
+                  { value: 'Расширенный тест', label: 'Расширенный' },
+                  { value: 'Premium для родителей', label: 'Premium для родителей' },
+                ]}
+                error={Boolean(errors.testType)}
+              />
+              {errors.testType && <p className="text-xs text-red-500">{errors.testType}</p>}
+            </div>
+          )}
           <div className="space-y-1 text-xs text-muted">
             <label className="flex items-start gap-3">
               <input
@@ -406,7 +436,7 @@ export default function HomePage() {
                 aria-invalid={Boolean(errors.consent)}
               />
               <span>
-                Поставив галочку, Вы соглашаетесь с{' '}
+                Настоящим Вы соглашаетесь с{' '}
                 <Link to="/privacy" className="text-blue-500 hover:underline">
                   Политикой конфиденциальности
                 </Link>
@@ -426,7 +456,7 @@ export default function HomePage() {
             }`}
             onClick={startTest}
           >
-            Начать тест
+            Начать тестирование
           </button>
         </div>
       </Modal>

@@ -11,7 +11,7 @@ export default {
         base: '#F8F6F0',
         card: '#FFFFFF',
         ink: '#3A3A3A',
-        muted: '#6C6C6C',
+        muted: '#4A4A4A',
         heading: '#3A5A40',
         secondary: '#DAD7CD',
         primary: {
