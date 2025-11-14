@@ -309,49 +309,49 @@ export default function HomePage() {
       {/* Who for */}
       <section className="container-balanced mt-16">
         <h2 className="text-2xl font-semibold">Кому подойдёт</h2>
-        <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
-          <div className="card p-5 border border-secondary/40 space-y-3">
+        <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4 items-stretch">
+          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
             <div className="flex items-center gap-2 text-xl">
               <GraduationCap className="w-6 h-6 text-primary flex-shrink-0" />
               <span>Ученикам старших классов</span>
             </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
               <li>понять своё направление перед выбором вуза;</li>
               <li>сверить интересы с реальными склонностями;</li>
               <li>выбрать среду, где учёба и работа будут естественными, а не из-под палки;</li>
               <li>избежать случайного выбора "по совету".</li>
             </ul>
           </div>
-          <div className="card p-5 border border-secondary/40 space-y-3">
+          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
             <div className="flex items-center gap-2 text-xl">
               <GraduationCap className="w-6 h-6 text-primary flex-shrink-0" />
               <span>Студентам</span>
             </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
               <li>уточнить специализацию и карьерный трек, который действительно откликается;</li>
               <li>понять, в какой практике/формате вы раскроетесь лучше (наука, корпорация, стартап, фриланс);</li>
               <li>скорректировать учебную траекторию, чтобы не терять время на неподходящие курсы;</li>
               <li>повысить мотивацию и эффективность, опираясь на свои сильные стороны.</li>
             </ul>
           </div>
-          <div className="card p-5 border border-secondary/40 space-y-3">
+          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
             <div className="flex items-center gap-2 text-xl">
               <Users className="w-6 h-6 text-primary flex-shrink-0" />
               <span>Родителям подростков (13-18 лет)</span>
             </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
               <li>глубже понять характер и мышление ребёнка;</li>
               <li>увидеть, как с ним говорить и как мотивировать без давления;</li>
               <li>найти баланс между поддержкой и свободой;</li>
               <li>помочь ребёнку выбрать путь, не навязывая свой сценарий.</li>
             </ul>
           </div>
-          <div className="card p-5 border border-secondary/40 space-y-3">
+          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
             <div className="flex items-center gap-2 text-xl">
               <Briefcase className="w-6 h-6 text-primary flex-shrink-0" />
               <span>Взрослым</span>
             </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1">
+            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
               <li>переосмыслить профессию, если ощущение "я не на своём месте";</li>
               <li>понять, где комфортнее реализовывать себя — в команде, на своём деле или в другой сфере;</li>
               <li>увидеть свои сильные стороны и использовать их осознанно;</li>

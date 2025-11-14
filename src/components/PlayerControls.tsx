@@ -156,12 +156,7 @@ export default function PlayerControls({
                 }}
                 onMouseDown={(e) => e.stopPropagation()}
                 onMouseEnter={() => setShowVolumeSlider(true)}
-                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                style={{ 
-                  writingMode: 'bt-lr',
-                  WebkitAppearance: 'slider-vertical',
-                  appearance: 'slider-vertical'
-                }}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer rotate-90"
               />
             </div>
           </div>
