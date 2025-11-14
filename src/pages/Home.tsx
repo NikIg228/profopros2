@@ -5,9 +5,7 @@ import { motion, useInView } from 'framer-motion';
 import Modal from '../components/Modal';
 import AutoSlider from '../components/AutoSlider';
 import Select from '../components/Select';
-import HowItWorksSection from '../components/HowItWorksSection';
 import CountUp from '../components/CountUp';
-import CircularGallery from '../components/CircularGallery';
 import VideoPlayer from '../components/VideoPlayer';
 import type { VideoItem } from '../hooks/useVideoController';
 
@@ -134,92 +132,153 @@ export default function HomePage() {
       {/* Formats */}
       <section id="formats" className="container-balanced mt-14 lg:mt-20">
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="card p-6 flex flex-col border border-secondary/40 shadow-md bg-white order-1">
-            <div>
-              <h3 className="text-xl font-semibold text-primary">Базовый тест</h3>
-              <div className="mt-2 text-lg font-semibold text-primary">USD 0,00</div>
+          {/* Базовый тест */}
+          <div className="card p-8 flex flex-col shadow-md bg-white order-1 h-full">
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                {/* Иллюстрация */}
+                <div className="flex justify-center mb-4">
+                  <img
+                    src="/komu/undraw_mobile-testing_sm2l.svg"
+                    alt=""
+                    className="h-[70px] opacity-90 object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                
+                <h3 className="text-xl font-semibold text-primary">Базовый тест</h3>
+                <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
+                  <li>Короткий тест (5 вопросов)</li>
+                  <li>Предварительное определение типа личности</li>
+                  <li>Краткое описание вашего стиля мышления и поведения</li>
+                  <li>Отлично подходит, чтобы познакомиться с методикой</li>
+                </ul>
+              </div>
+              <button
+                className="btn mt-6 px-5 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold transition-all duration-300 rounded-xl"
+                onClick={() => openFor('free', 'Базовый тест')}
+              >
+                Бесплатно
+              </button>
             </div>
-            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside flex-grow">
-              <li>Короткий тест (9 вопросов)</li>
-              <li>Предварительное определение типа личности</li>
-              <li>Краткое описание вашего стиля мышления и поведения</li>
-              <li>Отлично подходит, чтобы познакомиться с методикой</li>
-            </ul>
-            <button
-              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
-              onClick={() => openFor('free', 'Базовый тест')}
-            >
-              Начать
-            </button>
           </div>
 
-          <div className="card p-6 flex flex-col border border-secondary/40 shadow-md bg-white order-2">
-            <div>
-              <h3 className="text-xl font-semibold text-primary">Расширенный тест</h3>
-              <div className="mt-2 text-lg font-semibold text-primary">USD 9,99 (разовый отчёт)</div>
+          {/* Расширенный тест */}
+          <div className="card p-8 flex flex-col border border-green-100 rounded-2xl shadow-md bg-gradient-to-b from-[#F6FAF8] to-white order-2 h-full min-h-[440px] relative">
+            {/* Маленький бейдж */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-50 text-blue-700 shadow-sm rounded-full px-3 py-1 text-xs z-10">
+              🔍 Оптимальный выбор
             </div>
-            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside flex-grow">
-              <li>40+ продуманных вопросов</li>
-              <li>Детальный психологический профиль</li>
-              <li>Персонализированный VIP-отчёт в PDF</li>
-              <li>Сильные и уязвимые стороны</li>
-              <li>Подходящие профессии и естественная рабочая среда</li>
-              <li>Рекомендации по развитию и взаимодействию с другими</li>
-            </ul>
-            <button
-              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
-              onClick={() => openFor('pro', 'Расширенный тест')}
-            >
-              Начать
-            </button>
+            
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                {/* Иллюстрация */}
+                <div className="flex justify-center mb-4">
+                  <img
+                    src="/komu/undraw_usability-testing_w7dd.svg"
+                    alt=""
+                    className="h-[70px] opacity-90 object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                
+                <h3 className="text-xl font-semibold text-primary">Расширенный тест</h3>
+                <div className="mt-6 text-sm text-muted space-y-2 border-l-2 border-green-100 pl-4">
+                  <p>40+ продуманных вопросов</p>
+                  <ul className="list-disc list-inside space-y-2">
+                    <li>Детальный психологический профиль</li>
+                    <li>Персонализированный VIP-отчёт в PDF</li>
+                    <li>Сильные и уязвимые стороны</li>
+                    <li>Подходящие профессии и естественная рабочая среда</li>
+                    <li>Рекомендации по развитию и взаимодействию с другими</li>
+                  </ul>
+                </div>
+              </div>
+              <button
+                className="btn mt-6 px-5 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold shadow-md rounded-xl transition-all duration-300"
+                onClick={() => openFor('pro', 'Расширенный тест')}
+              >
+                USD 9,99
+              </button>
+            </div>
           </div>
 
-          <div className="card p-6 flex flex-col border-2 border-primary bg-[#ECE9E0] shadow-lg order-3">
-            <div>
-              <div className="inline-block rounded-full bg-primary text-white text-xs px-3 py-1 mb-3">Рекомендуем</div>
-              <h3 className="text-xl font-semibold text-primary">Premium для родителей</h3>
-              <div className="mt-2 text-lg font-semibold text-primary">USD 19,99 (разовый отчёт)</div>
+          {/* Premium для родителей */}
+          <div className="card p-8 flex flex-col rounded-2xl shadow-xl bg-gradient-to-b from-[#F7FDF9] to-white order-3 h-full relative transition-all duration-300 lg:scale-105" style={{ border: '2px solid transparent', backgroundImage: 'linear-gradient(white, white), linear-gradient(to right, rgba(74, 222, 128, 0.4), rgba(21, 128, 61, 0.4))', backgroundOrigin: 'border-box', backgroundClip: 'padding-box, border-box' }}>
+            {/* Плавающий бейдж */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-100 text-amber-700 rounded-full px-3 py-1 text-sm shadow z-10 whitespace-nowrap">
+              ⭐ Рекомендуем родителям
             </div>
-            <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside flex-grow">
-              <li>Все из расширенного теста +</li>
-              <li>Подробное описание личности ребёнка</li>
-              <li>Руководство для родителей: как понимать, поддерживать и мотивировать</li>
-              <li>Советы, как строить доверие и улучшать общение в семье</li>
-              <li>Подходит родителям подростков 13-18 лет</li>
-            </ul>
-            <button
-              className="btn mt-5 px-5 py-3 bg-primary text-white hover:bg-[#C67C48] transition"
-              onClick={() => openFor('pro', 'Premium для родителей')}
-            >
-              Начать
-            </button>
+            
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                {/* Иллюстрация */}
+                <div className="flex justify-center mb-4">
+                  <img
+                    src="/komu/undraw_shared-goals_jn0a.svg"
+                    alt=""
+                    className="h-[70px] opacity-90 object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                
+                <h3 className="text-xl font-semibold text-primary">Premium для родителей</h3>
+                <ul className="mt-6 text-sm text-muted space-y-2 list-disc list-inside">
+                  <li className="list-none">Все из Расширенного теста +</li>
+                  <li>Подробное описание личности ребёнка</li>
+                  <li>Руководство для родителей: как понимать, поддерживать и мотивировать</li>
+                  <li>Советы, как строить доверие и улучшать общение в семье</li>
+                  <li>Подходит родителям подростков 13-18 лет</li>
+                </ul>
+              </div>
+              <button
+                className="btn mt-6 px-5 py-3 bg-green-700/95 hover:bg-green-800 text-white font-semibold shadow-lg rounded-xl scale-[102%] transition-all duration-300"
+                onClick={() => openFor('pro', 'Premium для родителей')}
+              >
+                USD 19,99
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* How it works */}
-      <HowItWorksSection
-        steps={[
-          {
-            title: 'Вы проходите Базовый тест',
-            content: (
+      <section className="container-balanced mt-14 lg:mt-20">
+        <h2 className="text-2xl font-semibold mb-8">Как это работает</h2>
+        <div className="relative pl-8 md:pl-12">
+          {/* Декоративная линия слева */}
+          <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary/30"></div>
+          
+          <div className="space-y-6">
+            <div className="card p-6 border border-secondary/40 relative">
+              <div className="absolute -left-[2.25rem] md:-left-[3.25rem] top-6 w-3 h-3 rounded-full bg-primary border-2 border-base"></div>
+              <div className="mb-4">
+                <span className="text-xs md:text-sm font-semibold text-primary">Шаг 1</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-heading mb-4">Вы проходите Базовый тест</h3>
               <div className="space-y-2">
                 <p className="text-gray-900">Ответы основаны на простых жизненных ситуациях.</p>
                 <p className="text-gray-900">Они не требуют "знаний" — важно выбрать то, что ближе и естественнее.</p>
               </div>
-            ),
-          },
-          {
-            title: 'Алгоритм анализирует ваш естественный тип мышления',
-            content: (
+            </div>
+
+            <div className="card p-6 border border-secondary/40 relative">
+              <div className="absolute -left-[2.25rem] md:-left-[3.25rem] top-6 w-3 h-3 rounded-full bg-primary border-2 border-base"></div>
+              <div className="mb-4">
+                <span className="text-xs md:text-sm font-semibold text-primary">Шаг 2</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-heading mb-4">Алгоритм анализирует ваш естественный тип мышления</h3>
               <p className="text-gray-900">
                 Ответы сопоставляются с ключевыми дихотомиями и паттернами поведения, используемыми в международных типологиях MBTI и RIASEC (Холланд).
               </p>
-            ),
-          },
-          {
-            title: 'Вы получаете персональный результат',
-            content: (
+            </div>
+
+            <div className="card p-6 border border-secondary/40 relative">
+              <div className="absolute -left-[2.25rem] md:-left-[3.25rem] top-6 w-3 h-3 rounded-full bg-primary border-2 border-base"></div>
+              <div className="mb-4">
+                <span className="text-xs md:text-sm font-semibold text-primary">Шаг 3</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-heading mb-4">Вы получаете персональный результат</h3>
               <div className="space-y-3">
                 <p className="text-gray-900">
                   Базовый тест — это первый шаг к пониманию себя. Вы получите предварительное определение вашего типа личности — краткое описание, которое отражает ваши естественные реакции, стиль мышления и подход к жизни.
@@ -233,34 +292,40 @@ export default function HomePage() {
                   </ul>
                 </div>
               </div>
-            ),
-          },
-          {
-            title: 'Хотите глубже?',
-            content: (
+            </div>
+
+            <div className="card p-6 border border-secondary/40 relative">
+              <div className="absolute -left-[2.25rem] md:-left-[3.25rem] top-6 w-3 h-3 rounded-full bg-primary border-2 border-base"></div>
+              <div className="mb-4">
+                <span className="text-xs md:text-sm font-semibold text-primary">Шаг 4</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-heading mb-4">Хотите глубже?</h3>
               <div className="space-y-3">
                 <p className="text-gray-900">
-                   Получите расширенный отчёт — там подробно о вашем типе мышления, сильных сторонах и сферах, где вы чувствуете себя естественно и уверенно.
+                  Получите расширенный отчёт — там подробно о вашем типе мышления, сильных сторонах и сферах, где вы чувствуете себя естественно и уверенно.
                 </p>
                 <p className="text-gray-900">
                   Вы узнаете, что помогает вам расти, а что, наоборот, мешает, поймёте свои реакции в отношениях и узнаете, как использовать особенности своей личности в работе, общении и жизни.
                 </p>
               </div>
-            ),
-          },
-          {
-            title: 'Понимание, которое остаётся',
-            content: (
+            </div>
+
+            <div className="card p-6 border border-secondary/40 relative">
+              <div className="absolute -left-[2.25rem] md:-left-[3.25rem] top-6 w-3 h-3 rounded-full bg-primary border-2 border-base"></div>
+              <div className="mb-4">
+                <span className="text-xs md:text-sm font-semibold text-primary">Шаг 5</span>
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-heading mb-4">Понимание, которое остаётся</h3>
               <div className="space-y-2">
                 <p className="text-gray-900">Это не тест "на оценку".</p>
                 <p className="text-gray-900">
                   Это инструмент, который помогает понять себя и других — и принять решения без хаоса и сомнений.
                 </p>
               </div>
-            ),
-          },
-        ]}
-      />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Social proof */}
       <section className="container-balanced mt-16">
@@ -316,16 +381,66 @@ export default function HomePage() {
       {/* Reviews slider */}
       <section className="container-balanced mt-16">
         <h2 className="text-2xl font-semibold mb-4">Отзывы</h2>
-        <div style={{ height: '600px', position: 'relative', backgroundColor: 'transparent' }}>
-          <CircularGallery
-            items={videoItems.map(v => ({ image: v.src, text: v.title }))}
-            bend={3}
-            textColor="#ffffff"
-            borderRadius={0.05}
-            scrollEase={0.02}
-            onVideoClick={handleVideoClick}
-          />
+        <div className="relative overflow-hidden py-8">
+          <div className="flex animate-scroll gap-4">
+            {/* Дублируем видео для бесшовной прокрутки */}
+            {[...videoItems, ...videoItems].map((video, index) => {
+              const actualIndex = index % videoItems.length;
+              return (
+                <div
+                  key={`${video.id}-${index}`}
+                  className="flex-shrink-0 w-[280px] sm:w-[320px] cursor-pointer group"
+                  onClick={() => handleVideoClick(actualIndex)}
+                >
+                  <div className="relative aspect-[9/16] rounded-lg overflow-hidden bg-black/10 border border-secondary/20 group-hover:border-primary/40 transition-colors">
+                    <video
+                      src={video.src}
+                      className="w-full h-full object-cover"
+                      muted
+                      loop
+                      playsInline
+                      onMouseEnter={(e) => {
+                        const target = e.target as HTMLVideoElement;
+                        target.play();
+                      }}
+                      onMouseLeave={(e) => {
+                        const target = e.target as HTMLVideoElement;
+                        target.pause();
+                        target.currentTime = 0;
+                      }}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/10 transition-colors">
+                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                      <p className="text-white text-sm font-medium">{video.title}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
+        <style>{`
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          .animate-scroll {
+            animation: scroll 7s linear infinite;
+          }
+          .animate-scroll:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
       </section>
 
       {/* Video Player */}
@@ -499,46 +614,47 @@ function WhoForCards() {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <div ref={ref} className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
+    <div ref={ref} className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4 sm:gap-6">
       {/* 1. Ученикам старших классов */}
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/40 rounded-2xl overflow-hidden relative flex flex-col"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="card pt-4 px-4 pb-4 sm:pt-6 sm:px-6 sm:pb-6 bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/40 rounded-xl sm:rounded-2xl overflow-hidden relative flex flex-col"
       >
         {/* Иллюстрация */}
-        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+        <div className="flex items-start justify-center h-[120px] sm:h-[160px] mb-3 sm:mb-4 relative">
           <img
             src="/komu/undraw_true-friends_1h3v.svg"
             alt=""
-            className="max-h-[140px] object-contain object-top"
+            className="max-h-[100px] sm:max-h-[140px] w-auto object-contain object-top"
             loading="lazy"
           />
           {/* Элементы роста */}
-          <Sparkles className="absolute top-2 right-2 w-5 h-5 text-blue-400/60" />
-          <Sparkles className="absolute top-4 left-2 w-4 h-4 text-blue-300/50" />
+          <Sparkles className="absolute top-1 right-1 sm:top-2 sm:right-2 w-4 h-4 sm:w-5 sm:h-5 text-blue-400/60" />
+          <Sparkles className="absolute top-2 left-1 sm:top-4 sm:left-2 w-3 h-3 sm:w-4 sm:h-4 text-blue-300/50" />
         </div>
         
-        <h3 className="text-xl font-semibold text-heading mb-3">Ученикам старших классов</h3>
+        <h3 className="text-lg sm:text-xl font-semibold text-heading mb-2 sm:mb-3">Ученикам старших классов</h3>
         
-        <p className="text-sm text-muted leading-relaxed mb-4">
+        <p className="text-xs sm:text-sm text-muted leading-relaxed mb-3 sm:mb-4">
           Когда ты стоишь на пороге выбора — важно увидеть себя не через оценки, а через склонности.
-          <br /><br />
+          <br className="hidden sm:block" />
+          <br className="hidden sm:block" />
           Здесь ты находишь направление, в котором чувствуешь себя естественно.
         </p>
         
-        <ul className="text-sm text-muted space-y-2">
+        <ul className="text-xs sm:text-sm text-muted space-y-1.5 sm:space-y-2">
           <li className="flex items-start gap-2">
-            <Target className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>понять своё направление перед выбором вуза</span>
           </li>
           <li className="flex items-start gap-2">
-            <Target className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>сверить интересы с реальными склонностями</span>
           </li>
           <li className="flex items-start gap-2">
-            <Target className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>выбрать среду, где учёба будет естественной</span>
           </li>
         </ul>
@@ -546,45 +662,46 @@ function WhoForCards() {
 
       {/* 2. Студентам */}
       <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-emerald-50 to-emerald-100/50 border border-emerald-200/40 rounded-2xl overflow-hidden relative flex flex-col"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="card pt-4 px-4 pb-4 sm:pt-6 sm:px-6 sm:pb-6 bg-gradient-to-br from-emerald-50 to-emerald-100/50 border border-emerald-200/40 rounded-xl sm:rounded-2xl overflow-hidden relative flex flex-col"
       >
         {/* Иллюстрация */}
-        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+        <div className="flex items-start justify-center h-[120px] sm:h-[160px] mb-3 sm:mb-4 relative">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-emerald-200/30 blur-xl rounded-full w-32 h-32 transform translate-x-2 translate-y-2"></div>
+            <div className="bg-emerald-200/30 blur-xl rounded-full w-24 h-24 sm:w-32 sm:h-32 transform translate-x-1 translate-y-1 sm:translate-x-2 sm:translate-y-2"></div>
           </div>
           <img
             src="/komu/undraw_continuous-learning_a1ld.svg"
             alt=""
-            className="max-h-[140px] object-contain object-top relative z-10"
+            className="max-h-[100px] sm:max-h-[140px] w-auto object-contain object-top relative z-10"
             loading="lazy"
           />
           {/* Элементы роста */}
-          <Sparkles className="absolute bottom-2 right-2 w-4 h-4 text-emerald-400/50 z-10" />
+          <Sparkles className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-3 h-3 sm:w-4 sm:h-4 text-emerald-400/50 z-10" />
         </div>
         
-        <h3 className="text-xl font-semibold text-heading mb-3">Студентам</h3>
+        <h3 className="text-lg sm:text-xl font-semibold text-heading mb-2 sm:mb-3">Студентам</h3>
         
-        <p className="text-sm text-muted leading-relaxed mb-4">
+        <p className="text-xs sm:text-sm text-muted leading-relaxed mb-3 sm:mb-4">
           В университете нет "правильного пути" — есть твой формат, твой темп роста.
-          <br /><br />
+          <br className="hidden sm:block" />
+          <br className="hidden sm:block" />
           Наш профиль показывает, как раскрыться в реальной практике.
         </p>
         
-        <ul className="text-sm text-muted space-y-2">
+        <ul className="text-xs sm:text-sm text-muted space-y-1.5 sm:space-y-2">
           <li className="flex items-start gap-2">
-            <Lightbulb className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Lightbulb className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>уточнить специализацию и карьерный трек</span>
           </li>
           <li className="flex items-start gap-2">
-            <Lightbulb className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Lightbulb className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>понять, в какой практике вы раскроетесь лучше</span>
           </li>
           <li className="flex items-start gap-2">
-            <Lightbulb className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Lightbulb className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>скорректировать учебную траекторию</span>
           </li>
         </ul>
@@ -592,100 +709,102 @@ function WhoForCards() {
 
       {/* 3. Родителям подростков */}
       <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/40 rounded-2xl overflow-hidden relative flex flex-col"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="card pt-4 px-4 pb-4 sm:pt-6 sm:px-6 sm:pb-6 bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/40 rounded-xl sm:rounded-2xl overflow-hidden relative flex flex-col"
       >
         {/* Иллюстрация */}
-        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+        <div className="flex items-start justify-center h-[120px] sm:h-[160px] mb-3 sm:mb-4 relative">
           <img
             src="/komu/undraw_together_s27q.svg"
             alt=""
-            className="max-h-[140px] object-contain object-top"
+            className="max-h-[100px] sm:max-h-[140px] w-auto object-contain object-top"
             loading="lazy"
           />
           {/* Элементы роста */}
-          <Sparkles className="absolute top-2 left-2 w-4 h-4 text-amber-400/50" />
+          <Sparkles className="absolute top-1 left-1 sm:top-2 sm:left-2 w-3 h-3 sm:w-4 sm:h-4 text-amber-400/50" />
         </div>
         
-        <h3 className="text-xl font-semibold text-heading mb-3">Родителям подростков (13–18)</h3>
+        <h3 className="text-lg sm:text-xl font-semibold text-heading mb-2 sm:mb-3">Родителям подростков (13–18)</h3>
         
-        <p className="text-sm text-muted leading-relaxed mb-4">
+        <p className="text-xs sm:text-sm text-muted leading-relaxed mb-3 sm:mb-4">
           Подростковый возраст — это поиск своего голоса.
-          <br /><br />
+          <br className="hidden sm:block" />
+          <br className="hidden sm:block" />
           Профиль помогает родителям увидеть сильные стороны ребёнка и говорить с ним на одном языке.
         </p>
         
-        <ul className="text-sm text-muted space-y-2 mb-4">
+        <ul className="text-xs sm:text-sm text-muted space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
           <li className="flex items-start gap-2">
-            <Heart className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>глубже понять характер и мышление ребёнка</span>
           </li>
           <li className="flex items-start gap-2">
-            <Heart className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>увидеть, как с ним говорить и мотивировать</span>
           </li>
           <li className="flex items-start gap-2">
-            <Heart className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>найти баланс между поддержкой и свободой</span>
           </li>
         </ul>
         
         {/* Плашка снизу */}
-        <div className="mt-auto pt-4 border-t border-amber-200/40">
-          <p className="text-xs text-amber-700/70 font-medium text-center">Поддержка семьи — основа роста</p>
+        <div className="mt-auto pt-3 sm:pt-4 border-t border-amber-200/40">
+          <p className="text-[10px] sm:text-xs text-amber-700/70 font-medium text-center">Поддержка семьи — основа роста</p>
         </div>
       </motion.div>
 
       {/* 4. Взрослым */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-green-50 via-primary/5 to-primary/10 border border-primary/20 rounded-2xl overflow-hidden relative flex flex-col"
+        initial={{ opacity: 0, y: 30 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="card pt-4 px-4 pb-4 sm:pt-6 sm:px-6 sm:pb-6 bg-gradient-to-br from-green-50 via-primary/5 to-primary/10 border border-primary/20 rounded-xl sm:rounded-2xl overflow-hidden relative flex flex-col"
       >
         {/* Иллюстрация */}
-        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+        <div className="flex items-start justify-center h-[120px] sm:h-[160px] mb-3 sm:mb-4 relative">
           <img
             src="/komu/undraw_bussiness.svg"
             alt=""
-            className="max-h-[140px] object-contain object-top"
+            className="max-h-[100px] sm:max-h-[140px] w-auto object-contain object-top"
             loading="lazy"
           />
           {/* Элементы роста */}
-          <Sparkles className="absolute bottom-2 right-2 w-5 h-5 text-primary/40" />
-          <Sparkles className="absolute top-2 left-2 w-4 h-4 text-primary/30" />
+          <Sparkles className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-4 h-4 sm:w-5 sm:h-5 text-primary/40" />
+          <Sparkles className="absolute top-1 left-1 sm:top-2 sm:left-2 w-3 h-3 sm:w-4 sm:h-4 text-primary/30" />
         </div>
         
-        <h3 className="text-xl font-semibold text-heading mb-3 text-center">Взрослым</h3>
+        <h3 className="text-lg sm:text-xl font-semibold text-heading mb-2 sm:mb-3 text-center">Взрослым</h3>
         
-        <p className="text-sm text-muted leading-relaxed mb-4 text-center">
+        <p className="text-xs sm:text-sm text-muted leading-relaxed mb-3 sm:mb-4 text-center">
           Порой мы оказываемся "не на своём месте" не потому, что ошиблись,
           а потому что пришло время обновиться.
-          <br /><br />
+          <br className="hidden sm:block" />
+          <br className="hidden sm:block" />
           Профиль помогает взрослому увидеть, где его энергия естественна.
         </p>
         
-        <ul className="text-sm text-muted space-y-2 mb-4">
+        <ul className="text-xs sm:text-sm text-muted space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
           <li className="flex items-start gap-2">
-            <Briefcase className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>переосмыслить профессию, если "не на своём месте"</span>
           </li>
           <li className="flex items-start gap-2">
-            <Briefcase className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>понять, где комфортнее реализовывать себя</span>
           </li>
           <li className="flex items-start gap-2">
-            <Briefcase className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary flex-shrink-0 mt-0.5" />
             <span>восстановить ясность в том, чего вы хотите</span>
           </li>
         </ul>
         
         {/* Круглая "эмоциональная" цитата */}
-        <div className="mt-auto pt-4 border-t border-primary/20">
-          <div className="bg-primary/5 rounded-full px-4 py-2 text-center">
-            <p className="text-xs text-primary/80 font-medium italic">"Обновление — это не отказ от прошлого, а возврат к себе"</p>
+        <div className="mt-auto pt-3 sm:pt-4 border-t border-primary/20">
+          <div className="bg-primary/5 rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-center">
+            <p className="text-[10px] sm:text-xs text-primary/80 font-medium italic">"Обновление — это не отказ от прошлого, а возврат к себе"</p>
           </div>
         </div>
       </motion.div>
