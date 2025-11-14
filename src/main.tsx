@@ -11,6 +11,7 @@ import TermsPage from './pages/Terms';
 import ReviewsPage from './pages/Reviews';
 import AboutPage from './pages/About';
 import HelpPage from './pages/Help';
+import DetailsPage from './pages/Details';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: 'privacy', element: <PrivacyPage /> },
       { path: 'terms', element: <TermsPage /> },
       { path: 'help', element: <HelpPage /> },
+      { path: 'details', element: <DetailsPage /> },
     ],
   },
 ]);

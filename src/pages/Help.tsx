@@ -1,48 +1,26 @@
+import { Mail, Send } from 'lucide-react';
 import Accordion from '../components/Accordion';
 
 const socialLinks = [
   {
     name: 'TikTok',
     url: 'https://www.tiktok.com/@profilevelup',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current" aria-hidden="true">
-        <path d="M14.9 3a4.3 4.3 0 0 0 .1 1.1 4.3 4.3 0 0 0 3 3 4.3 4.3 0 0 0 1 .1v2.9a7.3 7.3 0 0 1-3.3-.9v5c0 3-2.4 5.4-5.4 5.4S5 17.2 5 14.2 7.4 8.8 10.4 8.8c.3 0 .6 0 .9.1v3a2.3 2.3 0 1 0 0 4.5 2.3 2.3 0 0 0 2.3-2.3V3h1.3z" />
-      </svg>
-    ),
+    icon: <img src="/soc_seti/tiktok.svg" alt="" className="w-8 h-8" aria-hidden="true" />,
   },
   {
     name: 'Instagram',
     url: 'https://www.instagram.com/profilevelup',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
-        <path
-          d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-        <circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="17.3" cy="6.7" r="1" fill="currentColor" />
-      </svg>
-    ),
+    icon: <img src="/soc_seti/instagram.svg" alt="" className="w-8 h-8" aria-hidden="true" />,
   },
   {
     name: 'YouTube',
     url: 'https://www.youtube.com/@profilevelup',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current" aria-hidden="true">
-        <path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8ZM10.5 15.1V8.9l4.7 3.1-4.7 3.1Z" />
-      </svg>
-    ),
+    icon: <img src="/soc_seti/youtube.svg" alt="" className="w-8 h-8" aria-hidden="true" />,
   },
   {
     name: 'Telegram-канал',
     url: 'https://t.me/profilevelup',
-    icon: (
-      <svg viewBox="0 0 24 24" className="w-6 h-6 fill-current" aria-hidden="true">
-        <path d="M20.8 4.3 3.5 11.2c-1.2.5-1.2 1.2-.2 1.5l4.2 1.3 1.6 5c.2.5.4.6.8.3l2.3-1.9 4.2 3.1c.5.3.9.2 1-.4L21.9 5c.3-.9-.3-1.3-1.1-.7ZM9 14.6l7.6-5.2c.4-.3.8-.1.5.2l-6.6 6c-.2.2-.3.3-.2.7l.3 1.5c.1.3-.1.4-.3.2l-1.4-2.9c-.1-.3 0-.4.1-.5Z" />
-      </svg>
-    ),
+    icon: <img src="/soc_seti/telegram.svg" alt="" className="w-8 h-8" aria-hidden="true" />,
   },
 ];
 
@@ -153,18 +131,13 @@ export default function HelpPage() {
           <div className="grid gap-2 text-muted text-sm">
             <a href="mailto:support@profilevelup.com" className="flex items-center gap-2 text-primary hover:underline w-fit">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <svg viewBox="0 0 24 24" className="w-5 h-5" aria-hidden="true">
-                  <path d="M4 6h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="m4 7 8 5 8-5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                </svg>
+                <Mail className="w-5 h-5" aria-hidden="true" />
               </span>
               <span>Email: support@profilevelup.com</span>
             </a>
             <a href="https://t.me/ProfiLevelUpSupport" target="_blank" rel="noreferrer" className="flex items-center gap-2 text-primary hover:underline w-fit">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" aria-hidden="true">
-                  <path d="M21 3 3 10.4c-.9.4-.9 1 0 1.3l4 1.3 1.6 5.1c.2.5.4.5.8.2l2.3-2 4.1 3.1c.4.3.9.1 1-.4L22 4c.2-.8-.2-1.2-1-.9Zm-11 11 7.3-4.9c.3-.2.6 0 .3.2l-6.3 5.7c-.1.1-.3.4-.2.7l.3 1.5c.1.3-.1.4-.3.1l-1.2-2.6c-.1-.4 0-.5.1-.7Z" />
-                </svg>
+                <Send className="w-5 h-5" aria-hidden="true" />
               </span>
               <span>Telegram: @ProfiLevelUpSupport</span>
             </a>

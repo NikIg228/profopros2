@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 type Option = { value: string; label: string };
 type Props = {
@@ -35,9 +36,7 @@ export default function Select({ value, onChange, placeholder = 'Выберит�
         aria-invalid={error}
       >
         <span className={selected ? '' : 'text-muted'}>{selected || placeholder}</span>
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true" className={`transition-transform ${open ? 'rotate-180' : ''}`}>
-          <path d="M5 8l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <ChevronDown className={`w-4 h-4 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
       </button>
       {open && (
         <div

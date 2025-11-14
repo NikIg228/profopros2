@@ -1,4 +1,5 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 const STORAGE_KEY = 'preview_authed_v2';
 
 export default function PreviewGate({ children }: PropsWithChildren) {
@@ -47,16 +48,9 @@ export default function PreviewGate({ children }: PropsWithChildren) {
             onClick={() => setShow((s) => !s)}
           >
             {show ? (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M3 3l18 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M2.5 12C4.5 7.5 8 5 12 5s7.5 2.5 9.5 7c-1 2-2.5 3.6-4.3 4.7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
-              </svg>
+              <EyeOff className="w-5 h-5" />
             ) : (
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M2.5 12C4.5 7.5 8 5 12 5s7.5 2.5 9.5 7c-2 4.5-5.5 7-9.5 7S4.5 16.5 2.5 12z" stroke="currentColor" strokeWidth="1.5"/>
-                <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
-              </svg>
+              <Eye className="w-5 h-5" />
             )}
           </button>
         </div>

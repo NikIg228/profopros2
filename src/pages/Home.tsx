@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Check, FileText, HelpCircle, CheckSquare, Users, Star, GraduationCap, Briefcase } from 'lucide-react';
 import Modal from '../components/Modal';
 import AutoSlider from '../components/AutoSlider';
 import Select from '../components/Select';
 import HowItWorksSection from '../components/HowItWorksSection';
+import CountUp from '../components/CountUp';
+import CircularGallery from '../components/CircularGallery';
+import VideoModal from '../components/VideoModal';
 
 type FormErrorKey = 'name' | 'age' | 'gender' | 'testType' | 'email' | 'emailConfirm' | 'consent';
 
@@ -13,7 +17,24 @@ export default function HomePage() {
   const [form, setForm] = useState({ name: '', age: '', gender: '', testType: '', email: '', emailConfirm: '', consent: false });
   const [errors, setErrors] = useState<Partial<Record<FormErrorKey, string>>>({});
   const [previewOpen, setPreviewOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const navigate = useNavigate();
+
+  const videoItems = [
+    { image: '/video_otzyvy/1Аиша.mov', text: 'Аиша' },
+    { image: '/video_otzyvy/2Инкар.mov', text: 'Инкар' },
+    { image: '/video_otzyvy/3Дима.mp4', text: 'Дима' },
+    { image: '/video_otzyvy/4Индира.mp4', text: 'Индира' },
+    { image: '/video_otzyvy/5Альбина.mov', text: 'Альбина' },
+    { image: '/video_otzyvy/6ноунейм.mp4', text: 'Отзыв' },
+    { image: '/video_otzyvy/7ноунейм.mp4', text: 'Отзыв' },
+  ];
+
+  const handleVideoClick = (index: number) => {
+    setCurrentVideoIndex(index);
+    setVideoModalOpen(true);
+  };
 
   const trimmedEmail = form.email.trim();
   const trimmedEmailConfirm = form.emailConfirm.trim();
@@ -92,7 +113,7 @@ export default function HomePage() {
             </p>
             <div className="mt-6 flex gap-3 flex-col sm:flex-row">
               <button className="btn btn-primary px-5 py-3 w-full sm:w-auto" onClick={() => openFor('free')}>Начать тестирование</button>
-              <a href="#formats" className="btn btn-ghost px-5 py-3 w-full sm:w-auto">Подробнее</a>
+              <Link to="/details" className="btn btn-ghost px-5 py-3 w-full sm:w-auto">Подробнее</Link>
             </div>
           </div>
           <div className="lg:hidden fade-section">
@@ -243,37 +264,45 @@ export default function HomePage() {
       <section className="container-balanced mt-16">
         <div className="grid sm:grid-cols-3 gap-4">
           <div className="card p-5 md:p-6 border border-secondary/40 flex items-start gap-3">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 mt-1">
-              <path d="M20 6L9 17l-5-5" stroke="#6B9080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <div className="text-lg md:text-xl font-semibold text-heading">8 200+ человек прошли тест</div>
+            <Check className="w-6 h-6 text-primary flex-shrink-0 mt-1" strokeWidth={2.5} />
+            <div className="text-lg md:text-xl font-semibold text-heading">
+              <CountUp
+                from={0}
+                to={8200}
+                separator=" "
+                direction="up"
+                duration={2}
+                className="inline text-ink"
+              />+ человек прошли тест
+            </div>
           </div>
           <div className="card p-5 md:p-6 border border-secondary/40 flex items-start gap-3">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 mt-1">
-              <path d="M20 6L9 17l-5-5" stroke="#6B9080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <div className="text-lg md:text-xl font-semibold text-heading">92% говорят: "Я понял(а) себя лучше"</div>
+            <Check className="w-6 h-6 text-primary flex-shrink-0 mt-1" strokeWidth={2.5} />
+            <div className="text-lg md:text-xl font-semibold text-heading">
+              <CountUp
+                from={0}
+                to={92}
+                separator=""
+                direction="up"
+                duration={2}
+                className="inline text-ink"
+              /><span className="text-ink">%</span> говорят: "Я понял(а) себя лучше"
+            </div>
           </div>
           <div className="card p-5 md:p-6 border border-secondary/40 flex items-start gap-3">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="flex-shrink-0 mt-1">
-              <path d="M20 6L9 17l-5-5" stroke="#6B9080" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <div className="text-lg md:text-xl font-semibold text-heading">78% родителей отмечают, что ребёнок стал увереннее</div>
+            <Check className="w-6 h-6 text-primary flex-shrink-0 mt-1" strokeWidth={2.5} />
+            <div className="text-lg md:text-xl font-semibold text-heading">
+              <CountUp
+                from={0}
+                to={78}
+                separator=""
+                direction="up"
+                duration={2}
+                className="inline text-ink"
+              /><span className="text-ink">%</span> родителей отмечают, что ребёнок стал увереннее
+            </div>
           </div>
         </div>
-      </section>
-
-      {/* Reviews slider */}
-      <section className="container-balanced mt-16">
-        <h2 className="text-2xl font-semibold mb-4">Отзывы</h2>
-        <AutoSlider
-          slides={[
-            { name: 'Айгерим Садыкова', text: 'Понятные рекомендации, теперь знаю, что пробовать сначала.' },
-            { name: 'Ерлан Каскенов', text: 'Совпало с тем, что нравилось — технологии и аналитика.' },
-            { name: 'Дана Абишева', text: 'Хорошая структура, мотивация двигаться дальше.' },
-            { name: 'Алтынай Жумабек', text: 'Краткий результат уже полезен, но расширенный — супер.' },
-          ]}
-        />
       </section>
 
       {/* Who for */}
@@ -281,16 +310,22 @@ export default function HomePage() {
         <h2 className="text-2xl font-semibold">Кому подойдёт</h2>
         <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4">
           <div className="card p-5 border border-secondary/40 space-y-3">
-            <div className="text-xl">🎓 Ученикам старших классов</div>
+            <div className="flex items-center gap-2 text-xl">
+              <GraduationCap className="w-6 h-6 text-primary flex-shrink-0" />
+              <span>Ученикам старших классов</span>
+            </div>
             <ul className="text-sm text-muted list-disc list-inside space-y-1">
               <li>понять своё направление перед выбором вуза;</li>
               <li>сверить интересы с реальными склонностями;</li>
               <li>выбрать среду, где учёба и работа будут естественными, а не из-под палки;</li>
-              <li>избежать случайного выбора “по совету”.</li>
+              <li>избежать случайного выбора "по совету".</li>
             </ul>
           </div>
           <div className="card p-5 border border-secondary/40 space-y-3">
-            <div className="text-xl">🎓 Студентам</div>
+            <div className="flex items-center gap-2 text-xl">
+              <GraduationCap className="w-6 h-6 text-primary flex-shrink-0" />
+              <span>Студентам</span>
+            </div>
             <ul className="text-sm text-muted list-disc list-inside space-y-1">
               <li>уточнить специализацию и карьерный трек, который действительно откликается;</li>
               <li>понять, в какой практике/формате вы раскроетесь лучше (наука, корпорация, стартап, фриланс);</li>
@@ -299,7 +334,10 @@ export default function HomePage() {
             </ul>
           </div>
           <div className="card p-5 border border-secondary/40 space-y-3">
-            <div className="text-xl">👨‍👩‍👧 Родителям подростков (13-18 лет)</div>
+            <div className="flex items-center gap-2 text-xl">
+              <Users className="w-6 h-6 text-primary flex-shrink-0" />
+              <span>Родителям подростков (13-18 лет)</span>
+            </div>
             <ul className="text-sm text-muted list-disc list-inside space-y-1">
               <li>глубже понять характер и мышление ребёнка;</li>
               <li>увидеть, как с ним говорить и как мотивировать без давления;</li>
@@ -308,9 +346,12 @@ export default function HomePage() {
             </ul>
           </div>
           <div className="card p-5 border border-secondary/40 space-y-3">
-            <div className="text-xl">💼 Взрослым</div>
+            <div className="flex items-center gap-2 text-xl">
+              <Briefcase className="w-6 h-6 text-primary flex-shrink-0" />
+              <span>Взрослым</span>
+            </div>
             <ul className="text-sm text-muted list-disc list-inside space-y-1">
-              <li>переосмыслить профессию, если ощущение “я не на своём месте”;</li>
+              <li>переосмыслить профессию, если ощущение "я не на своём месте";</li>
               <li>понять, где комфортнее реализовывать себя — в команде, на своём деле или в другой сфере;</li>
               <li>увидеть свои сильные стороны и использовать их осознанно;</li>
               <li>восстановить ясность в том, чего вы хотите от работы и жизни.</li>
@@ -318,6 +359,30 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Reviews slider */}
+      <section className="container-balanced mt-16">
+        <h2 className="text-2xl font-semibold mb-4">Отзывы</h2>
+        <div style={{ height: '600px', position: 'relative', backgroundColor: 'transparent' }}>
+          <CircularGallery
+            items={videoItems}
+            bend={3}
+            textColor="#ffffff"
+            borderRadius={0.05}
+            scrollEase={0.02}
+            onVideoClick={handleVideoClick}
+          />
+        </div>
+      </section>
+
+      {/* Video Modal */}
+      <VideoModal
+        open={videoModalOpen}
+        onClose={() => setVideoModalOpen(false)}
+        videos={videoItems}
+        currentIndex={currentVideoIndex}
+        onIndexChange={setCurrentVideoIndex}
+      />
 
       {/* anchors удалены по просьбе пользователя */}
 
@@ -475,53 +540,18 @@ export default function HomePage() {
 
 
 
-function Check() {
-  return (
-    <svg className="mt-0.5 flex-none" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="9" className="stroke-primary" strokeWidth="1.5" fill="none" />
-      <path d="M6 10.5l2.5 2.5L14 8" stroke="#5B8DEF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 function FormIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-secondary">
-      <rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-      <path d="M7 8h10M7 12h6M7 16h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-    </svg>
-  );
+  return <FileText className="w-7 h-7 text-secondary" strokeWidth={1.5} />;
 }
 function QuestionsIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-secondary">
-      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5"/>
-      <path d="M9.5 9.5a2.5 2.5 0 1 1 4.4 1.6c-.6.7-1.6 1-1.9 1.9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      <circle cx="12" cy="16.2" r="0.8" fill="currentColor"/>
-    </svg>
-  );
+  return <HelpCircle className="w-7 h-7 text-secondary" strokeWidth={1.5} />;
 }
 function ResultIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-secondary">
-      <rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" strokeWidth="1.5"/>
-      <path d="M7 14l3 3 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
+  return <CheckSquare className="w-7 h-7 text-secondary" strokeWidth={1.5} />;
 }
 function UsersIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-secondary">
-      <circle cx="9" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.5"/>
-      <path d="M2.5 19c.8-2.6 3.2-4.5 6.5-4.5S14.7 16.4 15.5 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      <circle cx="17" cy="8.5" r="2.5" stroke="currentColor" strokeWidth="1.5"/>
-    </svg>
-  );
+  return <Users className="w-7 h-7 text-secondary" strokeWidth={1.5} />;
 }
 function StarIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" className="text-secondary">
-      <path d="M12 3l2.9 5.9 6.5.9-4.7 4.5 1.1 6.4L12 18.6 6.2 20.7 7.3 14.3 2.6 9.8l6.5-.9L12 3z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-    </svg>
-  );
+  return <Star className="w-7 h-7 text-secondary" strokeWidth={1.5} />;
 }
