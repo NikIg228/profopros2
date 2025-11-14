@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Check, FileText, HelpCircle, CheckSquare, Users, Star, GraduationCap, Briefcase } from 'lucide-react';
+import { Check, FileText, HelpCircle, CheckSquare, Users, Star, GraduationCap, Briefcase, Target, Lightbulb, Heart, Sparkles } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
 import Modal from '../components/Modal';
 import AutoSlider from '../components/AutoSlider';
 import Select from '../components/Select';
@@ -309,56 +310,7 @@ export default function HomePage() {
       {/* Who for */}
       <section className="container-balanced mt-16">
         <h2 className="text-2xl font-semibold">Кому подойдёт</h2>
-        <div className="mt-6 grid md:grid-cols-2 xl:grid-cols-4 gap-4 items-stretch">
-          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
-            <div className="flex items-center gap-2 text-xl">
-              <GraduationCap className="w-6 h-6 text-primary flex-shrink-0" />
-              <span>Ученикам старших классов</span>
-            </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
-              <li>понять своё направление перед выбором вуза;</li>
-              <li>сверить интересы с реальными склонностями;</li>
-              <li>выбрать среду, где учёба и работа будут естественными, а не из-под палки;</li>
-              <li>избежать случайного выбора "по совету".</li>
-            </ul>
-          </div>
-          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
-            <div className="flex items-center gap-2 text-xl">
-              <GraduationCap className="w-6 h-6 text-primary flex-shrink-0" />
-              <span>Студентам</span>
-            </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
-              <li>уточнить специализацию и карьерный трек, который действительно откликается;</li>
-              <li>понять, в какой практике/формате вы раскроетесь лучше (наука, корпорация, стартап, фриланс);</li>
-              <li>скорректировать учебную траекторию, чтобы не терять время на неподходящие курсы;</li>
-              <li>повысить мотивацию и эффективность, опираясь на свои сильные стороны.</li>
-            </ul>
-          </div>
-          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
-            <div className="flex items-center gap-2 text-xl">
-              <Users className="w-6 h-6 text-primary flex-shrink-0" />
-              <span>Родителям подростков (13-18 лет)</span>
-            </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
-              <li>глубже понять характер и мышление ребёнка;</li>
-              <li>увидеть, как с ним говорить и как мотивировать без давления;</li>
-              <li>найти баланс между поддержкой и свободой;</li>
-              <li>помочь ребёнку выбрать путь, не навязывая свой сценарий.</li>
-            </ul>
-          </div>
-          <div className="card p-5 border border-secondary/40 space-y-3 h-full flex flex-col">
-            <div className="flex items-center gap-2 text-xl">
-              <Briefcase className="w-6 h-6 text-primary flex-shrink-0" />
-              <span>Взрослым</span>
-            </div>
-            <ul className="text-sm text-muted list-disc list-inside space-y-1 flex-1">
-              <li>переосмыслить профессию, если ощущение "я не на своём месте";</li>
-              <li>понять, где комфортнее реализовывать себя — в команде, на своём деле или в другой сфере;</li>
-              <li>увидеть свои сильные стороны и использовать их осознанно;</li>
-              <li>восстановить ясность в том, чего вы хотите от работы и жизни.</li>
-            </ul>
-          </div>
-        </div>
+        <WhoForCards />
       </section>
 
       {/* Reviews slider */}
@@ -541,6 +493,205 @@ export default function HomePage() {
 }
 
 
+
+function WhoForCards() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  return (
+    <div ref={ref} className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6">
+      {/* 1. Ученикам старших классов */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-blue-50 to-blue-100/50 border border-blue-200/40 rounded-2xl overflow-hidden relative flex flex-col"
+      >
+        {/* Иллюстрация */}
+        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+          <img
+            src="/komu/undraw_true-friends_1h3v.svg"
+            alt=""
+            className="max-h-[140px] object-contain object-top"
+            loading="lazy"
+          />
+          {/* Элементы роста */}
+          <Sparkles className="absolute top-2 right-2 w-5 h-5 text-blue-400/60" />
+          <Sparkles className="absolute top-4 left-2 w-4 h-4 text-blue-300/50" />
+        </div>
+        
+        <h3 className="text-xl font-semibold text-heading mb-3">Ученикам старших классов</h3>
+        
+        <p className="text-sm text-muted leading-relaxed mb-4">
+          Когда ты стоишь на пороге выбора — важно увидеть себя не через оценки, а через склонности.
+          <br /><br />
+          Здесь ты находишь направление, в котором чувствуешь себя естественно.
+        </p>
+        
+        <ul className="text-sm text-muted space-y-2">
+          <li className="flex items-start gap-2">
+            <Target className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>понять своё направление перед выбором вуза</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Target className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>сверить интересы с реальными склонностями</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Target className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>выбрать среду, где учёба будет естественной</span>
+          </li>
+        </ul>
+      </motion.div>
+
+      {/* 2. Студентам */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-emerald-50 to-emerald-100/50 border border-emerald-200/40 rounded-2xl overflow-hidden relative flex flex-col"
+      >
+        {/* Иллюстрация */}
+        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-emerald-200/30 blur-xl rounded-full w-32 h-32 transform translate-x-2 translate-y-2"></div>
+          </div>
+          <img
+            src="/komu/undraw_continuous-learning_a1ld.svg"
+            alt=""
+            className="max-h-[140px] object-contain object-top relative z-10"
+            loading="lazy"
+          />
+          {/* Элементы роста */}
+          <Sparkles className="absolute bottom-2 right-2 w-4 h-4 text-emerald-400/50 z-10" />
+        </div>
+        
+        <h3 className="text-xl font-semibold text-heading mb-3">Студентам</h3>
+        
+        <p className="text-sm text-muted leading-relaxed mb-4">
+          В университете нет "правильного пути" — есть твой формат, твой темп роста.
+          <br /><br />
+          Наш профиль показывает, как раскрыться в реальной практике.
+        </p>
+        
+        <ul className="text-sm text-muted space-y-2">
+          <li className="flex items-start gap-2">
+            <Lightbulb className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>уточнить специализацию и карьерный трек</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Lightbulb className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>понять, в какой практике вы раскроетесь лучше</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Lightbulb className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>скорректировать учебную траекторию</span>
+          </li>
+        </ul>
+      </motion.div>
+
+      {/* 3. Родителям подростков */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/40 rounded-2xl overflow-hidden relative flex flex-col"
+      >
+        {/* Иллюстрация */}
+        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+          <img
+            src="/komu/undraw_together_s27q.svg"
+            alt=""
+            className="max-h-[140px] object-contain object-top"
+            loading="lazy"
+          />
+          {/* Элементы роста */}
+          <Sparkles className="absolute top-2 left-2 w-4 h-4 text-amber-400/50" />
+        </div>
+        
+        <h3 className="text-xl font-semibold text-heading mb-3">Родителям подростков (13–18)</h3>
+        
+        <p className="text-sm text-muted leading-relaxed mb-4">
+          Подростковый возраст — это поиск своего голоса.
+          <br /><br />
+          Профиль помогает родителям увидеть сильные стороны ребёнка и говорить с ним на одном языке.
+        </p>
+        
+        <ul className="text-sm text-muted space-y-2 mb-4">
+          <li className="flex items-start gap-2">
+            <Heart className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>глубже понять характер и мышление ребёнка</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Heart className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>увидеть, как с ним говорить и мотивировать</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Heart className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>найти баланс между поддержкой и свободой</span>
+          </li>
+        </ul>
+        
+        {/* Плашка снизу */}
+        <div className="mt-auto pt-4 border-t border-amber-200/40">
+          <p className="text-xs text-amber-700/70 font-medium text-center">Поддержка семьи — основа роста</p>
+        </div>
+      </motion.div>
+
+      {/* 4. Взрослым */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="card pt-6 px-6 pb-6 bg-gradient-to-br from-green-50 via-primary/5 to-primary/10 border border-primary/20 rounded-2xl overflow-hidden relative flex flex-col"
+      >
+        {/* Иллюстрация */}
+        <div className="flex items-start justify-center h-[160px] mb-4 relative">
+          <img
+            src="/komu/undraw_bussiness.svg"
+            alt=""
+            className="max-h-[140px] object-contain object-top"
+            loading="lazy"
+          />
+          {/* Элементы роста */}
+          <Sparkles className="absolute bottom-2 right-2 w-5 h-5 text-primary/40" />
+          <Sparkles className="absolute top-2 left-2 w-4 h-4 text-primary/30" />
+        </div>
+        
+        <h3 className="text-xl font-semibold text-heading mb-3 text-center">Взрослым</h3>
+        
+        <p className="text-sm text-muted leading-relaxed mb-4 text-center">
+          Порой мы оказываемся "не на своём месте" не потому, что ошиблись,
+          а потому что пришло время обновиться.
+          <br /><br />
+          Профиль помогает взрослому увидеть, где его энергия естественна.
+        </p>
+        
+        <ul className="text-sm text-muted space-y-2 mb-4">
+          <li className="flex items-start gap-2">
+            <Briefcase className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>переосмыслить профессию, если "не на своём месте"</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Briefcase className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>понять, где комфортнее реализовывать себя</span>
+          </li>
+          <li className="flex items-start gap-2">
+            <Briefcase className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+            <span>восстановить ясность в том, чего вы хотите</span>
+          </li>
+        </ul>
+        
+        {/* Круглая "эмоциональная" цитата */}
+        <div className="mt-auto pt-4 border-t border-primary/20">
+          <div className="bg-primary/5 rounded-full px-4 py-2 text-center">
+            <p className="text-xs text-primary/80 font-medium italic">"Обновление — это не отказ от прошлого, а возврат к себе"</p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 function FormIcon() {
   return <FileText className="w-7 h-7 text-secondary" strokeWidth={1.5} />;
