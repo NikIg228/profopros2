@@ -9,8 +9,7 @@ export default function Footer() {
           <div className="space-y-1">
             <div>Товарищество с ограниченной ответственностью «ProfiLevelUp»</div>
             <div>БИН 251140010905</div>
-            <div className="flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+            <div className="flex items-center gap-2">              
               <span>Казахстан, Алматы</span>
             </div>
           </div>

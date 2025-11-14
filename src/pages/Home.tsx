@@ -7,7 +7,8 @@ import Select from '../components/Select';
 import HowItWorksSection from '../components/HowItWorksSection';
 import CountUp from '../components/CountUp';
 import CircularGallery from '../components/CircularGallery';
-import VideoModal from '../components/VideoModal';
+import VideoPlayer from '../components/VideoPlayer';
+import type { VideoItem } from '../hooks/useVideoController';
 
 type FormErrorKey = 'name' | 'age' | 'gender' | 'testType' | 'email' | 'emailConfirm' | 'consent';
 
@@ -21,14 +22,14 @@ export default function HomePage() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const navigate = useNavigate();
 
-  const videoItems = [
-    { image: '/video_otzyvy/1Аиша.mov', text: 'Аиша' },
-    { image: '/video_otzyvy/2Инкар.mov', text: 'Инкар' },
-    { image: '/video_otzyvy/3Дима.mp4', text: 'Дима' },
-    { image: '/video_otzyvy/4Индира.mp4', text: 'Индира' },
-    { image: '/video_otzyvy/5Альбина.mov', text: 'Альбина' },
-    { image: '/video_otzyvy/6ноунейм.mp4', text: 'Отзыв' },
-    { image: '/video_otzyvy/7ноунейм.mp4', text: 'Отзыв' },
+  const videoItems: VideoItem[] = [
+    { id: '1', src: '/video_otzyvy/1Аиша.mov', title: 'Аиша' },
+    { id: '2', src: '/video_otzyvy/2Инкар.mov', title: 'Инкар' },
+    { id: '3', src: '/video_otzyvy/3Дима.mp4', title: 'Дима' },
+    { id: '4', src: '/video_otzyvy/4Индира.mp4', title: 'Индира' },
+    { id: '5', src: '/video_otzyvy/5Альбина.mov', title: 'Альбина' },
+    { id: '6', src: '/video_otzyvy/6ноунейм.mp4', title: 'Отзыв' },
+    { id: '7', src: '/video_otzyvy/7ноунейм.mp4', title: 'Отзыв' },
   ];
 
   const handleVideoClick = (index: number) => {
@@ -365,7 +366,7 @@ export default function HomePage() {
         <h2 className="text-2xl font-semibold mb-4">Отзывы</h2>
         <div style={{ height: '600px', position: 'relative', backgroundColor: 'transparent' }}>
           <CircularGallery
-            items={videoItems}
+            items={videoItems.map(v => ({ image: v.src, text: v.title }))}
             bend={3}
             textColor="#ffffff"
             borderRadius={0.05}
@@ -375,14 +376,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Video Modal */}
-      <VideoModal
-        open={videoModalOpen}
-        onClose={() => setVideoModalOpen(false)}
-        videos={videoItems}
-        currentIndex={currentVideoIndex}
-        onIndexChange={setCurrentVideoIndex}
-      />
+      {/* Video Player */}
+      {videoModalOpen && (
+        <VideoPlayer
+          videos={videoItems}
+          startIndex={currentVideoIndex}
+          onClose={() => setVideoModalOpen(false)}
+          onIndexChange={setCurrentVideoIndex}
+        />
+      )}
 
       {/* anchors удалены по просьбе пользователя */}
 
