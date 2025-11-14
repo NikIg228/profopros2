@@ -124,7 +124,7 @@ export default function HelpPage() {
 
       <section className="fade-section">
         <div className="card p-6 md:p-8 border border-secondary/40 grid gap-4">
-          <h2 className="text-2xl font-semibold">📬 Контакты</h2>
+          <h2 className="text-2xl font-semibold">Контакты</h2>
           <p className="text-muted max-w-xl">
             Есть вопросы или нужна поддержка? Мы рядом 👇
           </p>
